@@ -97,26 +97,7 @@
             <p class="text-center">CGV - CGI - Cookies</p>
         </div>
     </footer>
-    <script>
-        function contactForm() {
-            return {
-                data: {
-                    email: '',
-                    question: '',
-                    message: ''
-                },
-
-                submitDataHandler() {
-                    fetch('/contact', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify(this.data)
-                    })
-                }
-            }
-        }
+    <script src="src/scripts/script.js">
     </script>
 </body>
 
