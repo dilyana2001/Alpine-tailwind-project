@@ -6,9 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./src/styles/style.css">
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <script defer src="./script.js"></script>
+    <script defer src="./src/scripts/script.js"></script>
     <title>Contact</title>
 </head>
 
@@ -20,7 +20,7 @@
     </header>
     <main class="container py-36 block w-1/3 m-auto">
         <section class="text-center">
-            <p class="bg-green-300 rounded text-5xl w-1/2 font-bold text-center mx-auto my-10">Une question ?</p>
+            <p class="bg-green-300 rounded text-5xl w-2/3 font-bold text-center mx-auto my-10">Une question ?</p>
             <p class="font-bold text-center my-5">On vous répondra par email en quelques heures</p>
             <p class="text-center my-10">Les jours ouvrés du lundi au vendredi de 9h à 18h30</p>
             <form action="/contact" method="POST" x-data="contactForm()" x-on:submit="submitDataHandler">
