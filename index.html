@@ -8,7 +8,7 @@
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="./src/styles/style.css">
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <script defer src="./src/scripts/script.js"></script>
+    <!-- <script defer src="./src/scripts/script.js"></script> -->
     <link rel="icon" type="image/png" href="/src/images/favicon.png">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
     <title>Contact</title>
@@ -97,7 +97,27 @@
             <p class="text-center">CGV - CGI - Cookies</p>
         </div>
     </footer>
+    <script>
+        function contactForm() {
+            return {
+                data: {
+                    email: '',
+                    question: '',
+                    message: ''
+                },
 
+                submitDataHandler() {
+                    fetch('/contact', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(this.data)
+                    })
+                }
+            }
+        }
+    </script>
 </body>
 
 </html>
