@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <title>Contact</title>
+</head>
+
+<body>
+    <header>
+        <div class="header">
+
+        </div>
+    </header>
+    <main class="container py-36 block w-1/3 m-auto">
+        <section class="text-center">
+            <p class="bg-green-300 rounded text-5xl w-1/2 font-bold text-center mx-auto my-10">Une question ?</p>
+            <p class="font-bold text-center my-5">On vous répondra par email en quelques heures</p>
+            <p class="text-center my-10">Les jours ouvrés du lundi au vendredi de 9h à 18h30</p>
+            <form action="/contact" method="POST" x-data="contactForm()" x-on:submit="submitDataHandler">
+                <input type="text" x-model="data.email" placeholder="Votre e-mail" class="bg-gray-100 rounded w-2/3 mx-auto my-1"><br>
+                <input type="text" x-model="data.question" placeholder="Quel est le sujet ?" class="bg-gray-100 rounded w-2/3 my-1"><br>
+                <textarea x-model="data.message" placeholder="Votre message" id="" cols="30" rows="10" class="bg-gray-100 rounded w-2/3 my-1"></textarea><br>
+                <input type="submit" value="Envoyer" class="bg-green-300 rounded text-2xl font-bold py-2 px-28">
+            </form>
+        </section>
+    </main>
+
+    <script>
+        function contactForm() {
+            return {
+                data: {
+                    email: '',
+                    question: '',
+                    message: ''
+                },
+
+                submitDataHandler() {
+                    fetch('/contact', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(this.data)
+                    })
+                }
+            }
+        }
+    </script>
+
+</body>
+
+</html>
