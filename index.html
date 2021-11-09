@@ -8,6 +8,7 @@
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="./style.css">
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script defer src="./script.js"></script>
     <title>Contact</title>
 </head>
 
@@ -30,28 +31,9 @@
             </form>
         </section>
     </main>
+    <footer>
 
-    <script>
-        function contactForm() {
-            return {
-                data: {
-                    email: '',
-                    question: '',
-                    message: ''
-                },
-
-                submitDataHandler() {
-                    fetch('/contact', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify(this.data)
-                    })
-                }
-            }
-        }
-    </script>
+    </footer>
 
 </body>
 
