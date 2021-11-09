@@ -9,16 +9,36 @@
     <link rel="stylesheet" href="./src/styles/style.css">
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script defer src="./src/scripts/script.js"></script>
+    <link rel="icon" type="image/png" href="/src/images/favicon.png">
     <title>Contact</title>
 </head>
 
 <body>
     <header>
-        <div class="header">
-
+        <div class="header border">
+            <div class="max-width relative max-w-screen-xl w-full my-0 mx-auto">
+                <div class="header-top flex justify-between items-center h-28 ">
+                    <div class="header-top-left flex items-center items-center">
+                        <a href="/" class="logo"><img src="./src/images/logo.svg" alt=""></a>
+                    </div>
+                    <div class="header-top-right">
+                        <ul class="nav-items flex justify-end items-center">
+                            <li class="mx-6 font-bold"><a href="/">Comment ça marche ?</a></li>
+                            <li class="login mx-6 font-bold underline"> <a href="/"> Connexion</a></li>
+                            <li class="w-16 h-14 mx-6 font-bold">
+                                <a href="/client"> <img src="/src/images/service.png" alt=""></a>
+                            </li>
+                            <li class="mx-6 font-bold">
+                                <a href="/" class="flex bg-green-300 pt-2.5 pl-1 pb-1 pr-3 rounded"><img class="mx-1 ml-1.5" src="/src/images/phone.svg" alt="">
+                                    <span>09 800 89 800</span> </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
     </header>
-    <main class="container py-36 block w-1/3 m-auto">
+    <main class="container py-10 block w-1/3 m-auto">
         <section class="text-center">
             <p class="bg-green-300 rounded text-5xl w-2/3 font-bold text-center mx-auto my-10">Une question ?</p>
             <p class="font-bold text-center my-5">On vous répondra par email en quelques heures</p>

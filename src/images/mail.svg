@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="40.002" height="25.164" viewBox="0 0 40.002 25.164">
+  <g id="Groupe_4" data-name="Groupe 4" transform="translate(-874.5 -3123.5)">
+    <g id="Groupe_3" data-name="Groupe 3" transform="translate(875 3124)">
+      <path id="Tracé_12" data-name="Tracé 12" d="M197.878,356.8a2.615,2.615,0,0,0-1.044,2.034v18.495a2.6,2.6,0,0,0,.97,1.973" transform="translate(-196.834 -355.999)" fill="none" stroke="#343434" stroke-miterlimit="10" stroke-width="1"/>
+      <path id="Tracé_13" data-name="Tracé 13" d="M368.2,379.3a2.6,2.6,0,0,0,.97-1.973V358.834a2.615,2.615,0,0,0-1.044-2.034" transform="translate(-330.165 -355.999)" fill="none" stroke="#343434" stroke-miterlimit="10" stroke-width="1"/>
+      <path id="Tracé_14" data-name="Tracé 14" d="M201.545,353.224a3.821,3.821,0,0,1,2.388-.8h32.139a3.821,3.821,0,0,1,2.388.8" transform="translate(-200.501 -352.423)" fill="none" stroke="#343434" stroke-miterlimit="10" stroke-width="1"/>
+      <line id="Ligne_6" data-name="Ligne 6" x1="13.582" y1="11.22" transform="translate(1.044 0.801)" fill="none" stroke="#343434" stroke-miterlimit="10" stroke-width="1"/>
+      <line id="Ligne_7" data-name="Ligne 7" y1="11.22" x2="13.582" transform="translate(24.377 0.801)" fill="none" stroke="#343434" stroke-miterlimit="10" stroke-width="1"/>
+      <path id="Tracé_15" data-name="Tracé 15" d="M238.273,479.712a3.8,3.8,0,0,1-2.462.862H203.673a3.8,3.8,0,0,1-2.462-.862" transform="translate(-200.241 -456.41)" fill="none" stroke="#343434" stroke-miterlimit="10" stroke-width="1"/>
+      <line id="Ligne_8" data-name="Ligne 8" x1="13.656" y2="11.281" transform="translate(0.97 12.021)" fill="none" stroke="#343434" stroke-miterlimit="10" stroke-width="1"/>
+      <line id="Ligne_9" data-name="Ligne 9" x2="13.656" y2="11.281" transform="translate(24.377 12.021)" fill="none" stroke="#343434" stroke-miterlimit="10" stroke-width="1"/>
+      <path id="Tracé_16" data-name="Tracé 16" d="M272.585,418.089l-4.875,4.027-4.875-4.027" transform="translate(-248.208 -406.068)" fill="none" stroke="#343434" stroke-miterlimit="10" stroke-width="1"/>
+    </g>
+  </g>
+</svg>
