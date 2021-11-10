@@ -20,29 +20,23 @@
                     <div class="header-top-left flex items-center items-center px-5">
                         <a href="/" class="logo"><img src="/src/images/logo.svg" alt=""></a>
                     </div>
-                    <div class="flex lg:hidden">
-                        <button class="openbtn" onclick="openNav()"><i class="fas fa-bars"></i></button>
-                        <div id="mySidepanel" class="sidepanel">
-                            <ul class="nav-items flex flex-col justify-end items-center">
-                                <button class="openbtn place-self-end pr-2" onclick="openNav()"><i class="fas fa-bars"></i></button>
+                    <div class="flex lg:hidden" x-data="navBar">
+                        <button class="openbtn" @click="openCloseNav()"><i class="fas fa-bars"></i></button>
+                        <div id="mySidepanel" class="w-0 fixed z-10 h-52 top-0 left-0 bg-gray-100 overflow-x-hidden delay-100 pt-10">
+                            <ul class="nav-items flex flex-col justify-end items-left">
+                                <button class="openbtn place-self-end pr-5 fixed top-12" @click="openCloseNav()"><i class="fas fa-bars"></i></button>
                                 <li class="mx-6 font-bold text-sm mb-3 justify-between"><a href="/">Comment ça marche ?</a></li>
-                                <li class="login mx-6 font-bold text-sm mb-3"> <a href="/"><i class="glyphicon fa-user fas pr-2"></i><span class="underline">Connexion</span></a></li>
+                                <li class="login mx-6 font-bold text-sm mb-3"> <a href="/"><i class="glyphicon fa-user fas pr-2"></i>
+                                <span class="underline">Connexion</span></a></li>
                                 <li class="w-7 mx-6 font-bold mb-3">
                                     <a href="/"> <img src="/src/images/service.png" alt=""></a>
                                 </li>
                                 <li class="mx-6 font-bold text-sm mb-3">
-                                    <a href="/" class="flex bg-green-400 p-1 rounded"><img class="w-4" src="/src/images/phone.svg" alt="">
+                                    <a href="/" class="flex bg-green-400 p-1 pt-1.5 rounded w-36"><img class="w-4" src="/src/images/phone.svg" alt="">
                                         <span class="pl-2 pr-1">09 800 89 800</span> </a>
                                 </li>
                             </ul>
                         </div>
-                        <script>
-                            function openNav() {
-                                let sideNavBar = document.getElementById("mySidepanel");
-                                sideNavBar.style.width == "500px" ? sideNavBar.style.width = "0" : sideNavBar.style.width = "500px";
-                            }
-                        </script>
-
                     </div>
                     <div class="header-top-right hidden lg:flex">
                         <ul class="nav-items flex justify-end items-center">
@@ -79,8 +73,8 @@
 
     <footer class="pt-16 pb-5 bg-gray-100 text-xl text-gray-700 font-light">
         <div>
-            <nav class="flex relative max-w-screen-xl my-0 mx-auto justify-between flex-wrap ">
-                <ul class="mx-6">
+            <nav class="grid md:flex max-w-screen-xl my-0 mx-auto justify-between flex-wrap footer-widget">
+                <ul class="mx-6 text-center">
                     <li class="px-5">
                         <a href="/"><img src="/src/images/logo.svg" alt=""></a>
                     </li>
@@ -106,7 +100,7 @@
                     <li class="mb-5 hover:text-green-400"><a href="/">Mutuelle</a></li>
                     <li class="mb-5 hover:text-green-400"><a href="/">Abonnement</a></li>
                 </ul>
-                <ul class="mx-6">
+                <ul class="mx-6 md:mx-6 ">
                     <li class="flex flex-row mb-5">
                         <img src="/src/images/mail.svg" alt="">&nbsp;&nbsp; 50€ offert pour votre premier parrainage
                     </li>

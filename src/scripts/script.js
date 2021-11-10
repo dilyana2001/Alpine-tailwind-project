@@ -38,3 +38,14 @@ function contactForm() {
         }
     }
 }
+
+function navBar() {
+    return {
+        openCloseNav() {
+            let sideNavBar = document.getElementById("mySidepanel");
+            sideNavBar.style.width == "500px"
+                ? sideNavBar.style.width = "0"
+                : sideNavBar.style.width = "500px";
+        }
+    }
+}
