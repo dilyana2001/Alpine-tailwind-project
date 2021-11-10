@@ -13,17 +13,41 @@
 </head>
 
 <body>
-    <header class="text-gray-700 ">
+    <header class="text-gray-700">
         <div class="header border bg-gray-100">
             <div class="max-width relative max-w-screen-xl w-full my-0 mx-auto">
                 <div class="header-top flex justify-between items-center h-28 ">
-                    <div class="header-top-left flex items-center items-center  px-5">
+                    <div class="header-top-left flex items-center items-center px-5">
                         <a href="/" class="logo"><img src="/src/images/logo.svg" alt=""></a>
                     </div>
-                    <div class="header-top-right">
+                    <div class="flex lg:hidden">
+                        <button class="openbtn" onclick="openNav()"><i class="fas fa-bars"></i></button>
+                        <div id="mySidepanel" class="sidepanel">
+                            <ul class="nav-items flex flex-col justify-end items-center">
+                                <button class="openbtn place-self-end pr-2" onclick="openNav()"><i class="fas fa-bars"></i></button>
+                                <li class="mx-6 font-bold text-sm mb-3 justify-between"><a href="/">Comment ça marche ?</a></li>
+                                <li class="login mx-6 font-bold text-sm mb-3"> <a href="/"><i class="glyphicon fa-user fas pr-2"></i><span class="underline">Connexion</span></a></li>
+                                <li class="w-7 mx-6 font-bold mb-3">
+                                    <a href="/"> <img src="/src/images/service.png" alt=""></a>
+                                </li>
+                                <li class="mx-6 font-bold text-sm mb-3">
+                                    <a href="/" class="flex bg-green-400 p-1 rounded"><img class="w-4" src="/src/images/phone.svg" alt="">
+                                        <span class="pl-2 pr-1">09 800 89 800</span> </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <script>
+                            function openNav() {
+                                let sideNavBar = document.getElementById("mySidepanel");
+                                sideNavBar.style.width == "500px" ? sideNavBar.style.width = "0" : sideNavBar.style.width = "500px";
+                            }
+                        </script>
+
+                    </div>
+                    <div class="header-top-right hidden lg:flex">
                         <ul class="nav-items flex justify-end items-center">
                             <li class="mx-6 font-bold text-xl"><a href="/">Comment ça marche ?</a></li>
-                            <li class="login mx-6 font-bold text-xl"> <a href="/"><i class="glyphicon fa-user fas pr-2" aria-hidden="true"></i><span class="underline">Connexion</span> </a></li>
+                            <li class="login mx-6 font-bold text-xl"> <a href="/"><i class="glyphicon fa-user fas pr-2"></i><span class="underline">Connexion</span> </a></li>
                             <li class="w-16 h-14 mx-6 font-bold">
                                 <a href="/client"> <img src="/src/images/service.png" alt=""></a>
                             </li>
@@ -37,6 +61,7 @@
             </div>
         </div>
     </header>
+
     <main class="container py-10 block w-max m-auto font-light">
         <section class="text-center">
             <p class="bg-green-400 rounded text-4xl font-bold text-center mx-auto mb-10 w-80">Une question ?</p>
@@ -52,36 +77,36 @@
         </section>
     </main>
 
-    <footer class="pt-16 pb-5 bg-gray-100 text-xl text-gray-700 font-light ">
+    <footer class="pt-16 pb-5 bg-gray-100 text-xl text-gray-700 font-light">
         <div>
-            <nav class="flex relative max-w-screen-xl my-0 mx-auto justify-between">
-                <ul>
+            <nav class="flex relative max-w-screen-xl my-0 mx-auto justify-between flex-wrap ">
+                <ul class="mx-6">
                     <li class="px-5">
                         <a href="/"><img src="/src/images/logo.svg" alt=""></a>
                     </li>
                 </ul>
-                <ul class="w-40">
-                    <li class="mb-5 font-bold ">A propos</li>
-                    <li class="mb-5 "><a href="/">Guide</a></li>
-                    <li class="mb-5 "><a href="/">Qui sommes nous ?</a></li>
-                    <li class="mb-5 "><a href="/">Contact</a></li>
-                    <li class="mb-5 "><a href="/">FAQ</a></li>
-                    <li class="mb-5 "><a href="/">Politique de confidentialité</a></li>
+                <ul class="w-40 mx-6">
+                    <li class="mb-5 font-bold">A propos</li>
+                    <li class="mb-5 hover:text-green-400"><a href="/">Guide</a></li>
+                    <li class="mb-5 hover:text-green-400"><a href="/">Qui sommes nous ?</a></li>
+                    <li class="mb-5 hover:text-green-400"><a href="/">Contact</a></li>
+                    <li class="mb-5 hover:text-green-400"><a href="/">FAQ</a></li>
+                    <li class="mb-5 hover:text-green-400"><a href="/">Politique de confidentialité</a></li>
                 </ul>
-                <ul class="w-40">
+                <ul class="w-40 mx-6">
                     <li class="mb-5 font-bold">Nos services</li>
-                    <li class="mb-5 "><a href="/">Electricité</a></li>
-                    <li class="mb-5 "><a href="/">Gaz</a></li>
-                    <li class="mb-5 "><a href="/">Assurance habitation</a></li>
-                    <li class="mb-5 "><a href="/">Assurance véhicule</a></li>
-                    <li class="mb-5 "><a href="/">Assurance emprunteur</a></li>
-                    <li class="mb-5 "><a href="/">Téléphone</a></li>
-                    <li class="mb-5 "><a href="/">Internet</a></li>
-                    <li class="mb-5 "><a href="/">Frais bancaires</a></li>
-                    <li class="mb-5 "><a href="/">Mutuelle</a></li>
-                    <li class="mb-5 "><a href="/">Abonnement</a></li>
+                    <li class="mb-5 hover:text-green-400"><a href="/">Electricité</a></li>
+                    <li class="mb-5 hover:text-green-400"><a href="/">Gaz</a></li>
+                    <li class="mb-5 hover:text-green-400"><a href="/">Assurance habitation</a></li>
+                    <li class="mb-5 hover:text-green-400"><a href="/">Assurance véhicule</a></li>
+                    <li class="mb-5 hover:text-green-400"><a href="/">Assurance emprunteur</a></li>
+                    <li class="mb-5 hover:text-green-400"><a href="/">Téléphone</a></li>
+                    <li class="mb-5 hover:text-green-400"><a href="/">Internet</a></li>
+                    <li class="mb-5 hover:text-green-400"><a href="/">Frais bancaires</a></li>
+                    <li class="mb-5 hover:text-green-400"><a href="/">Mutuelle</a></li>
+                    <li class="mb-5 hover:text-green-400"><a href="/">Abonnement</a></li>
                 </ul>
-                <ul>
+                <ul class="mx-6">
                     <li class="flex flex-row mb-5">
                         <img src="/src/images/mail.svg" alt="">&nbsp;&nbsp; 50€ offert pour votre premier parrainage
                     </li>
