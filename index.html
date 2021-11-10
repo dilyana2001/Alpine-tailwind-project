@@ -42,16 +42,25 @@
             <p class="bg-green-400 rounded text-4xl font-bold text-center mx-auto mb-10 w-80">Une question ?</p>
             <p class="font-bold text-center text-xl mb-8">On vous répondra par email en quelques heures</p>
             <p class="text-center  text-xl mb-10">Les jours ouvrés du lundi au vendredi de 9h à 18h30</p>
-            <form action="/contact" method="POST" x-data="contactForm()" x-on:submit="submitDataHandler">
+
+            <section x-data="contactForm()">
+
                 <input type="text" x-model="data.email" placeholder="Votre e-mail" class="bg-gray-100 rounded w-96 mx-auto mb-4 p-2"><br>
+
                 <input type="text" x-model="data.question" placeholder="Quel est le sujet ?" class="bg-gray-100 rounded w-96 mb-4 p-2"><br>
+
                 <textarea x-model="data.message" placeholder="Votre message" rows="5" id="" class="bg-gray-100 rounded w-96 mb-10 p-2"></textarea><br>
-                <input type="submit" value="Envoyer" class="bg-green-400 rounded text-2xl font-bold py-2 px-24">
-            </form>
+
+                <p class="text-red-400 font-bold" x-text="submitDataHandler()"></p>
+
+                <input type="submit" value="Envoyer" class="bg-green-400 rounded text-2xl font-bold py-2 px-24" x-on:click="submitDataHandler">
+
+            </section>
+
         </section>
     </main>
 
-    <footer class="pt-16 pb-5 bg-gray-100 text-xl text-gray-700 font-light">
+    <footer class="pt-16 pb-5 bg-gray-100 text-xl text-gray-700 font-light ">
         <div>
             <nav class="flex relative max-w-screen-xl my-0 mx-auto justify-between">
                 <ul>
