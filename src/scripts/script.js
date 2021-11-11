@@ -21,7 +21,7 @@ function contactForm() {
                 return;
             }
 
-            return fetch('/contact', {
+            return fetch('https://jsonplaceholder.typicode.com/todos', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
