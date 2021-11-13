@@ -1,6 +1,6 @@
 function contactForm() {
     return {
-        numberSteps: 5,
+        numberSteps: 1,
         formData: {
             email: '',
             question: '',
@@ -47,29 +47,30 @@ function contactForm() {
                 ...this.formData,
                 ...this.personalData
             }
-            if (this.error.length == 0) {
-                return fetch('https://jsonplaceholder.typicode.com/todos', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(data)
-                })
-                    .then(() => {
-                        this.formData.email = '';
-                        this.formData.question = '';
-                        this.formData.message = '';
-                        this.personalData.name = '',
-                            this.message = 'Merci! Votre question a été envoyée avec succès!';
-                    })
-                    .catch((err) => {
-                        if (err) {
-                            console.log(err);
-                            return this.error = err;
-                        }
-                        return this.error;
-                    });
+            if (!this.error.length == 0) {
+                return;
             }
+            return fetch('https://jsonplaceholder.typicode.com/todos', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+                .then(() => {
+                    this.formData.email = '';
+                    this.formData.question = '';
+                    this.formData.message = '';
+                    this.personalData.name = '',
+                        this.message = 'Merci! Votre question a été envoyée avec succès!';
+                })
+                .catch((err) => {
+                    if (err) {
+                        console.log(err);
+                        return this.error = err;
+                    }
+                    return this.error;
+                });
         }
     }
 }
