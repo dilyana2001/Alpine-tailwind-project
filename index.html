@@ -74,36 +74,39 @@
             <p class="bg-green-400 rounded text-4xl font-bold text-center mx-auto mb-10 w-80">Une question ?</p>
             <p class="font-bold text-center text-xl mb-8">On vous répondra par email en quelques heures</p>
             <p class="text-center  text-xl mb-10">Les jours ouvrés du lundi au vendredi de 9h à 18h30</p>
-            <div x-data="{isAllowed: true}">
+
+            <div x-data="{isAllowed: false}">
 
                 <div x-show="!isAllowed">
                     <input type="email" x-model="formData.email" placeholder="Votre e-mail" class="bg-gray-100 rounded w-96 mx-auto mb-4 p-2"><br>
                     <input type="text" x-model="formData.question" placeholder="Quel est le sujet ?" class="bg-gray-100 rounded w-96 mb-4 p-2"><br>
                     <textarea x-model="formData.message" placeholder="Votre message" rows="5" id="" class="bg-gray-100 rounded w-96 mb-5 p-2"></textarea><br>
-                    <input type="text" x-model="numberSteps" placeholder="Nombre de sous-étapes la suivante" class="bg-gray-100 rounded w-96 mb-4 p-2"><br>
+                    <input type="text" x-model.number="numberSteps" placeholder="Entrez le nombre de membres de la famille" class="bg-gray-100 rounded w-96 mb-4 p-2"><br>
                     <div class="font-bold text-red-400 pb-5" x-data="error">
                         <template x-for="(err, i) in error" :key="i">
                            <p x-text="err"></p>
                         </template>
                     </div>
-                    <input type="submit" value="Suivante" class="bg-green-400 rounded text-2xl font-bold py-2 px-24" @click="errorHandler().length == 0 ? isAllowed = !isAllowed : errorHandler">
+                    <p class="font-bold text-green-400" x-text="message"></p>
+                    <input type="submit" value="Suivante" class="bg-green-400 rounded text-2xl font-bold py-2 px-24 cursor-pointer" @click="errorHandler().length == 0 ? isAllowed = !isAllowed : errorHandler">
                 </div>
 
 
                 <div x-show="isAllowed">
                     <div class="flex">
-                        <template x-for="(num, index) in Number(numberSteps)" :key="index">
-                        <div class="px-2" x-data="{open: false}">
-                            <input type="text" x-model="personalData.name" placeholder="Entrez votre nom." class="bg-gray-100 rounded w-96 mx-auto mb-4 p-2"><br>
-                            <label>Voulez-vous recevoir notre newsletter?</label>
-                            <button @click="open = !open" :x-model="open ? personalData.newsletter = 'true' : personalData.newsletter = 'false' " type="button" class="flex-shrink-0 group relative rounded-full inline-flex items-center justify-center h-5 w-10 cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" role="switch" :aria-checked="open ? 'true' : 'false'">
-                                <span class="sr-only">Use setting</span>
-                                <span :aria-hidden="open ? 'true' : 'false'" class="pointer-events-none absolute bg-white w-full h-full rounded-md"></span>
+                        <template x-for="(num, index) in numberSteps" :key="index">
+                         <div class="px-2" x-data="{open: false}">
+                            <input type="text" :x-model="nameData.name" placeholder="Entrez le nom" class="bg-gray-100 rounded w-96 mx-auto mb-4 p-2"><br>
+                            <label>Signer pour le journal</label>
+                            <button @click="open = !open" :x-model="open ? nameData.newsletter = true : nameData.newsletter = false" type="button" class="flex-shrink-0 group relative rounded-full inline-flex items-center justify-center h-5 w-10 cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" role="switch" :aria-checked="open ? 'true' : 'false'">
+                                <!-- <span class="sr-only">Use setting</span>
+                                <span :aria-hidden="open ? 'true' : 'false'" class="pointer-events-none absolute bg-white w-full h-full rounded-md"></span> -->
                                 <span :aria-hidden="open ? 'true' : 'false'" class="bg-gray-200 pointer-events-none absolute h-4 w-9 mx-auto rounded-full transition-colors ease-in-out duration-200" :class="{'bg-indigo-600': open}"></span>
                                 <span :aria-hidden="open ? 'true' : 'false'" class="translate-x-0 pointer-events-none absolute left-0 inline-block h-5 w-5 border border-gray-200 rounded-full bg-white shadow transform ring-0 transition-transform ease-in-out duration-200" :class="{'translate-x-5': open}"></span>
-                            </button>
+                            </button><br>
+                            <input class="bg-green-300 rounded text-1xl px-4 cursor-pointer" type="submit" value="Submit" @click.once="nameHandler">
                          </div>
-                    </template>
+                        </template>
                     </div>
                     <div class="font-bold text-red-400 pb-5">
                         <template x-for="(err, i) in nameError" :key="i">
@@ -111,9 +114,8 @@
                         </template>
                     </div>
                     <div class="pb-5">
-                        <p class="font-bold text-green-400" x-text="message"></p>
-                        <input type="submit" value="Précédent" class="bg-green-400 rounded text-2xl font-bold py-2 px-24" @click="isAllowed = !isAllowed">
-                        <input type="submit" value="Envoyer" class="bg-green-400 rounded text-2xl font-bold py-2 px-24" @click="nameErrorHandler">
+                        <input type="submit" value="Précédent" class="bg-green-400 rounded text-2xl font-bold py-2 px-24 cursor-pointer" @click="isAllowed = !isAllowed">
+                        <input type="submit" value="Envoyer" class="bg-green-400 rounded text-2xl font-bold py-2 px-24 cursor-pointer" @click="nameErrorHandler().length > 0 ? isAllowed = true : isAllowed = false">
                     </div>
                 </div>
             </div>
