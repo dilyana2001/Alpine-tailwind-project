@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="/src/styles/style.css">
     <script src="/src/scripts/script.js" defer></script>
     <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
+    <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js" defer></script>
     <title>Contact</title>
 </head>
 
@@ -75,28 +77,35 @@
             <p class="font-bold text-center text-xl mb-8">On vous répondra par email en quelques heures</p>
             <p class="text-center  text-xl mb-10">Les jours ouvrés du lundi au vendredi de 9h à 18h30</p>
 
-            <div x-data="{isAllowed: false}">
+            <div x-data="{isAllowed: true}">
 
                 <div x-show="!isAllowed">
                     <input type="email" x-model="formData.email" placeholder="Votre e-mail" class="bg-gray-100 rounded w-96 mx-auto mb-4 p-2"><br>
                     <input type="text" x-model="formData.question" placeholder="Quel est le sujet ?" class="bg-gray-100 rounded w-96 mb-4 p-2"><br>
                     <textarea x-model="formData.message" placeholder="Votre message" rows="5" id="" class="bg-gray-100 rounded w-96 mb-5 p-2"></textarea><br>
                     <input type="text" x-model.number="numberSteps" placeholder="Entrez le nombre de membres de la famille" class="bg-gray-100 rounded w-96 mb-4 p-2"><br>
-                    <div class="font-bold text-red-400 pb-5" x-data="error">
-                        <template x-for="(err, i) in error" :key="i">
+                    <div class="font-bold text-red-400 pb-5">
+                        <template x-for="(err, i) in firstStepErrors" :key="i">
                            <p x-text="err"></p>
                         </template>
                     </div>
-                    <p class="font-bold text-green-400" x-text="message"></p>
-                    <input type="submit" value="Suivante" class="bg-green-400 rounded text-2xl font-bold py-2 px-24 cursor-pointer" @click="errorHandler().length == 0 ? isAllowed = !isAllowed : errorHandler">
+                    <p class="font-bold text-green-400" x-text="successMessage"></p>
+                    <input type="submit" value="Suivante" class="bg-green-400 rounded text-2xl font-bold py-2 px-24 cursor-pointer" @click="firstStepErrorHandler().length == 0 ? isAllowed = !isAllowed : firstStepErrorHandler">
                 </div>
 
 
                 <div x-show="isAllowed">
-                    <div class="flex">
-                        <template x-for="(num, index) in numberSteps" :key="index">
-                         <div class="px-2" x-data="{open: false}">
-                            <input type="text" :x-model="nameData.name" placeholder="Entrez le nom" class="bg-gray-100 rounded w-96 mx-auto mb-4 p-2"><br>
+                    <div x-data="{swiper: null}" x-init="swiper = new Swiper($refs.container, {
+                        loop: true,
+                        slidesPerView: 1,
+                        spaceBetween: 0
+                      })" class="relative w-10/12 mx-auto flex flex-row swiper">
+
+                        <div class="flex swiper-wrapper">
+                            <template x-for="(num, index) in numberSteps" :key="index">
+                            <div class="px-2 swiper-slide" x-data="{open: false}">
+                            <p x-text="num" class="bg-green-300 w-min py-1 px-2 rounded-full"></p>
+                            <input type="text" x-model="nameData.name" placeholder="Entrez le nom" class="bg-gray-100 rounded w-96 mx-auto mb-4 p-2"><br>
                             <label>Signer pour le journal</label>
                             <button @click="open = !open" :x-model="open ? nameData.newsletter = true : nameData.newsletter = false" type="button" class="flex-shrink-0 group relative rounded-full inline-flex items-center justify-center h-5 w-10 cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" role="switch" :aria-checked="open ? 'true' : 'false'">
                                 <!-- <span class="sr-only">Use setting</span>
@@ -104,21 +113,30 @@
                                 <span :aria-hidden="open ? 'true' : 'false'" class="bg-gray-200 pointer-events-none absolute h-4 w-9 mx-auto rounded-full transition-colors ease-in-out duration-200" :class="{'bg-indigo-600': open}"></span>
                                 <span :aria-hidden="open ? 'true' : 'false'" class="translate-x-0 pointer-events-none absolute left-0 inline-block h-5 w-5 border border-gray-200 rounded-full bg-white shadow transform ring-0 transition-transform ease-in-out duration-200" :class="{'translate-x-5': open}"></span>
                             </button><br>
-                            <input class="bg-green-300 rounded text-1xl px-4 cursor-pointer" type="submit" value="Submit" @click.once="nameHandler">
-                         </div>
-                        </template>
-                    </div>
-                    <div class="font-bold text-red-400 pb-5">
-                        <template x-for="(err, i) in nameError" :key="i">
+                            <!-- :class="{ 'h-64': hovered, 'h-36': !(hovered) }" -->
+                            <input class="bg-green-300 rounded text-1xl px-4 cursor-pointer" type="submit" value="Submit" @click="subStepHandler(num)">
+                            <div class="font-bold text-red-400 pb-5">
+                             <template x-for="(err, i) in subStepErrors" :key="i">
                                 <p x-text="err"></p>
-                        </template>
-                    </div>
-                    <div class="pb-5">
-                        <input type="submit" value="Précédent" class="bg-green-400 rounded text-2xl font-bold py-2 px-24 cursor-pointer" @click="isAllowed = !isAllowed">
-                        <input type="submit" value="Envoyer" class="bg-green-400 rounded text-2xl font-bold py-2 px-24 cursor-pointer" @click="nameErrorHandler().length > 0 ? isAllowed = true : isAllowed = false">
+                             </template>
+                        </div>
                     </div>
                 </div>
+                </template>
+                <div class="swiper-button-prev" @click="swiper.slidePrev()"></div>
+                <div class="swiper-button-next" @click="swiper.slideNext()"></div>
             </div>
+            <div class="font-bold text-red-400 pb-5">
+                <template x-for="(err, i) in secondStepErrors" :key="i">
+                            <p x-text="err"></p>
+                        </template>
+            </div>
+            <div class="pb-5">
+                <input type="submit" value="Précédent" class="bg-green-400 rounded text-2xl font-bold py-2 px-24 cursor-pointer" @click="isAllowed = !isAllowed">
+                <input type="submit" value="Envoyer" class="bg-green-400 rounded text-2xl font-bold py-2 px-24 cursor-pointer" @click="sendDataHandler().length > 0 ? isAllowed = true : isAllowed = false">
+            </div>
+        </div>
+        </div>
         </div>
     </main>
 
