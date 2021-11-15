@@ -12,7 +12,7 @@
     <script src="/src/scripts/script.js" defer></script>
     <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
     <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
-    <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js" defer></script>
+    <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
     <title>Contact</title>
 </head>
 
@@ -95,14 +95,14 @@
 
 
                 <div x-show="isAllowed">
-                    <div x-data="{swiper: null}" x-init="swiper = new Swiper($refs.container, {
+                    <div x-data="{swiper: null}" x-init="swiper = new Swiper('.swiper', {
                         loop: true,
                         slidesPerView: 1,
                         spaceBetween: 0
-                      })" class="relative w-10/12 mx-auto flex flex-row swiper">
-
-                        <div class="flex swiper-wrapper">
-                            <template x-for="(num, index) in numberSteps" :key="index">
+                      })" class="relative w-10/12 mx-auto flex flex-row">
+                        <div class="swiper">
+                            <div class="flex swiper-wrapper">
+                                <template x-for="(num, index) in numberSteps" :key="index">
                             <div class="px-2 swiper-slide" x-data="{open: false}">
                             <p x-text="num" class="bg-green-300 w-min py-1 px-2 rounded-full"></p>
                             <input type="text" x-model="nameData.name" placeholder="Entrez le nom" class="bg-gray-100 rounded w-96 mx-auto mb-4 p-2"><br>
@@ -119,21 +119,22 @@
                              <template x-for="(err, i) in subStepErrors" :key="i">
                                 <p x-text="err"></p>
                              </template>
+                            </div>
                         </div>
                     </div>
+                    </template>
+                    <div class="swiper-button-prev" @click="swiper.slidePrev()"><svg viewBox="0 0 20 20" fill="currentColor" class="chevron-left w-6 h-6"><path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></div>
+                    <div class="swiper-button-next" @click="swiper.slideNext()"> <svg viewBox="0 0 20 20" fill="currentColor" class="chevron-right w-6 h-6"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg></div>
                 </div>
-                </template>
-                <div class="swiper-button-prev" @click="swiper.slidePrev()"></div>
-                <div class="swiper-button-next" @click="swiper.slideNext()"></div>
-            </div>
-            <div class="font-bold text-red-400 pb-5">
-                <template x-for="(err, i) in secondStepErrors" :key="i">
+                <div class="font-bold text-red-400 pb-5">
+                    <template x-for="(err, i) in secondStepErrors" :key="i">
                             <p x-text="err"></p>
                         </template>
-            </div>
-            <div class="pb-5">
-                <input type="submit" value="Précédent" class="bg-green-400 rounded text-2xl font-bold py-2 px-24 cursor-pointer" @click="isAllowed = !isAllowed">
-                <input type="submit" value="Envoyer" class="bg-green-400 rounded text-2xl font-bold py-2 px-24 cursor-pointer" @click="sendDataHandler().length > 0 ? isAllowed = true : isAllowed = false">
+                </div>
+                <div class="pb-5">
+                    <input type="submit" value="Précédent" class="bg-green-400 rounded text-2xl font-bold py-2 px-24 cursor-pointer" @click="isAllowed = !isAllowed">
+                    <input type="submit" value="Envoyer" class="bg-green-400 rounded text-2xl font-bold py-2 px-24 cursor-pointer" @click="sendDataHandler().length > 0 ? isAllowed = true : isAllowed = false">
+                </div>
             </div>
         </div>
         </div>
