@@ -1,6 +1,6 @@
 function contactForm() {
     return {
-        numberSteps: 4,
+        numberSteps: '',
         successMessage: '',
         formData: {
             email: '',
@@ -59,7 +59,7 @@ function contactForm() {
                 this.secondStepErrors.push('Entrez tous les noms!');
                 return this.secondStepErrors;
             }
-
+if(this.arrayNameData.name)
             return fetch('https://jsonplaceholder.typicode.com/todos', {
                 method: 'POST',
                 headers: {
