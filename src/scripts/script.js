@@ -12,13 +12,14 @@ function contactForm() {
             newsletter: false,
         },
         arrayNameData: {
-            name: []
+            people: []
         },
         firstStepErrors: [],
         subStepErrors: [],
         secondStepErrors: [],
         successFinalMessase: false,
 
+        // need to return an array
         firstStepErrorHandler() {
             this.firstStepErrors = [];
             this.successMessage = '';
@@ -31,11 +32,25 @@ function contactForm() {
             if (this.formData.question.length < 5 || this.formData.message.length < 5) {
                 this.firstStepErrors.push('La question et le message doivent comporter au moins cinq caractères!');
             }
+            if (this.firstStepErrors.length > 0) {
+                return this.firstStepErrors;
+            }
+
+            this.arrayNameData.people = [];
+            for (let i = 1; i <= this.numberSteps; i++) {
+                let initializeInformation = {};
+                initializeInformation[i] = { name: '', isNewsletter: false };
+                this.arrayNameData.people.push(initializeInformation);
+            }
+            console.log(this.arrayNameData.people);
             return this.firstStepErrors;
         },
 
+        //dont need to return an array
         subStepHandler(id, swiper) {
             this.subStepErrors = [];
+            let index = this.arrayNameData.people.find(x => x.hasOwnProperty(id));
+
             if (!this.nameData.name) {
                 this.subStepErrors.push('Entrez le nom!');
                 return this.subStepErrors;
@@ -44,41 +59,49 @@ function contactForm() {
                 this.subStepErrors = [];
             }
 
-            const name = this.nameData.name;
-            const newsletter = this.nameData.newsletter;
+            index[id] = {
+                name: this.nameData.name,
+                isNewsletter: this.nameData.newsletter
+            };
 
-            if (this.arrayNameData.name.some(x => x[0] == id)) {
-                const index = this.arrayNameData.name.find(x => x[0] == id);
-                index[0] = id;
-                index[1] = this.nameData.name;
-                index[2] = this.nameData.newsletter;
-            } else {
-                this.arrayNameData.name.push([id, name, newsletter]);
-            }
-
-            this.nameData.name = '';
-            this.nameData.newsletter = false;
-            console.log(this.arrayNameData.name);
+            console.log(this.arrayNameData.people);
             swiper.slideNext();
         },
 
+        getInputValue(id) {
+            if (this.arrayNameData.people.length == 0) {
+                return '';
+            }
+            const index = this.arrayNameData.people.find(x => x.hasOwnProperty(id));
+            return Object.values(index)[0].name;
+        },
+
+        // need to return an array
         sendDataHandler() {
+            this.firstStepErrors = [];
             this.secondStepErrors = [];
             this.successMessage = '';
-            if (this.arrayNameData.name.length < this.numberSteps) {
-                this.secondStepErrors.push('Entrez tous les noms!');
-                return this.firstStepErrors.concat(this.secondStepErrors);
+
+            if (!this.formData.email || !this.formData.question || !this.formData.message || !this.numberSteps) {
+                this.firstStepErrors.push('Tous les champs sont requis!');
+                return this.firstStepErrors;
             }
+            if (this.arrayNameData.people.length < this.numberSteps) {
+                this.secondStepErrors.push('Entrez tous les noms!');
+                return this.secondStepErrors;
+            }
+
+            let data = {
+                ...this.formData,
+                ...this.arrayNameData
+            };
 
             return fetch('https://jsonplaceholder.typicode.com/todos', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({
-                        ...this.formData,
-                        ...this.arrayNameData
-                    })
+                    body: JSON.stringify(data)
                 })
                 .then(() => {
                     this.formData.email = '';
@@ -92,7 +115,7 @@ function contactForm() {
                     if (err) {
                         this.firstStepErrors.push(err);
                     }
-                    return this.firstStepErrors;
+                    return this.firstStepErrors.concat(this.secondStepErrors);
                 });
         },
     }
