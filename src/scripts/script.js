@@ -17,6 +17,7 @@ function contactForm() {
         firstStepErrors: [],
         subStepErrors: [],
         secondStepErrors: [],
+        successFinalMessase: false,
 
         firstStepErrorHandler() {
             this.firstStepErrors = [];
@@ -33,7 +34,7 @@ function contactForm() {
             return this.firstStepErrors;
         },
 
-        subStepHandler(id) {
+        subStepHandler(id, swiper) {
             this.subStepErrors = [];
             if (!this.nameData.name) {
                 this.subStepErrors.push('Entrez le nom!');
@@ -42,14 +43,23 @@ function contactForm() {
             if (this.nameData.name) {
                 this.subStepErrors = [];
             }
-            if (this.arrayNameData.name.length > this.numberSteps - 1) {
-                return;
+
+            const name = this.nameData.name;
+            const newsletter = this.nameData.newsletter;
+
+            if (this.arrayNameData.name.some(x => x[0] == id)) {
+                const index = this.arrayNameData.name.find(x => x[0] == id);
+                index[0] = id;
+                index[1] = this.nameData.name;
+                index[2] = this.nameData.newsletter;
+            } else {
+                this.arrayNameData.name.push([id, name, newsletter]);
             }
 
-            this.arrayNameData.name.push([id, this.nameData.name, this.nameData.newsletter]);
             this.nameData.name = '';
             this.nameData.newsletter = false;
             console.log(this.arrayNameData.name);
+            swiper.slideNext();
         },
 
         sendDataHandler() {
@@ -57,22 +67,26 @@ function contactForm() {
             this.successMessage = '';
             if (this.arrayNameData.name.length < this.numberSteps) {
                 this.secondStepErrors.push('Entrez tous les noms!');
-                return this.secondStepErrors;
+                return this.firstStepErrors.concat(this.secondStepErrors);
             }
-// if(this.arrayNameData.name)
+
             return fetch('https://jsonplaceholder.typicode.com/todos', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ ...this.formData, ...this.arrayNameData })
-            })
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        ...this.formData,
+                        ...this.arrayNameData
+                    })
+                })
                 .then(() => {
                     this.formData.email = '';
                     this.formData.question = '';
                     this.formData.message = '';
                     this.numberSteps = '';
                     this.successMessage = 'Merci! Votre question a été envoyée avec succès!';
+                    this.successFinalMessase = true;
                 })
                 .catch((err) => {
                     if (err) {
@@ -83,4 +97,3 @@ function contactForm() {
         },
     }
 }
-
