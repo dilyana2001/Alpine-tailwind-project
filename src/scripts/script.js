@@ -19,6 +19,18 @@ function contactForm() {
         secondStepErrors: [],
         successFinalMessase: false,
 
+        newSwiper() {
+            return swiper = new Swiper('.swiper', {
+                loop: true,
+                followFinger: true,
+                slidesPerView: 1,
+                spaceBetween: 30,
+                noSwiping: true,
+                onlyExternal: true,
+                noSwipingClass: 'swiper-slide'
+            })
+        },
+
         // need to return an array
         firstStepErrorHandler() {
             this.firstStepErrors = [];
