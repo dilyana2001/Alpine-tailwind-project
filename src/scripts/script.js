@@ -17,10 +17,15 @@ function contactForm() {
         firstStepErrors: [],
         subStepErrors: [],
         secondStepErrors: [],
-        successFinalMessase: false,
+        successFinalMessage: false,
 
         newSwiper() {
             return swiper = new Swiper('.swiper', {
+                pagination: {
+                    el: '.swiper-pagination',
+                    type: 'bullets',
+                    clickable: true,
+                },
                 loop: true,
                 followFinger: true,
                 slidesPerView: 1,
@@ -32,7 +37,7 @@ function contactForm() {
         },
 
         // need to return an array
-        firstStepErrorHandler() {
+        firstStepHandler() {
             this.firstStepErrors = [];
             this.successMessage = '';
             if (!this.formData.email || !this.formData.question || !this.formData.message || !this.numberSteps) {
@@ -48,6 +53,7 @@ function contactForm() {
                 return this.firstStepErrors;
             }
 
+            // let oldArray = [...this.arrayNameData.people];
             this.arrayNameData.people = [];
             for (let i = 1; i <= this.numberSteps; i++) {
                 let initializeInformation = {};
@@ -57,6 +63,7 @@ function contactForm() {
                 };
                 this.arrayNameData.people.push(initializeInformation);
             }
+
             console.log(this.arrayNameData.people);
             return this.firstStepErrors;
         },
@@ -96,7 +103,7 @@ function contactForm() {
 
             this.arrayNameData.people.forEach(x => {
                 for (let i in x) {
-                    if (!x[i].name) {
+                    if (x[i].name == '') {
                         this.secondStepErrors.push('Entrez tous les noms!');
                         return this.secondStepErrors;
                     }
@@ -121,7 +128,7 @@ function contactForm() {
                     this.formData.message = '';
                     this.numberSteps = '';
                     this.successMessage = 'Merci! Votre question a été envoyée avec succès!';
-                    this.successFinalMessase = true;
+                    this.successFinalMessage = true;
                 })
                 .catch((err) => {
                     if (err) {
