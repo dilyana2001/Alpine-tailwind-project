@@ -47,7 +47,7 @@ function contactForm() {
         },
 
         //dont need to return an array
-        subStepHandler(id, swiper) {
+        subStepHandler(id) {
             this.subStepErrors = [];
             let index = this.arrayNameData.people.find(x => x.hasOwnProperty(id));
 
@@ -63,9 +63,8 @@ function contactForm() {
                 name: this.nameData.name,
                 isNewsletter: this.nameData.newsletter
             };
-
+            this.nameData.newsletter = false;
             console.log(this.arrayNameData.people);
-            swiper.slideNext();
         },
 
         getInputValue(id) {
@@ -73,6 +72,7 @@ function contactForm() {
                 return '';
             }
             const index = this.arrayNameData.people.find(x => x.hasOwnProperty(id));
+            console.log(Object.values(index)[0].name)
             return Object.values(index)[0].name;
         },
 

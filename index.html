@@ -112,7 +112,7 @@
                         })" class="relative w-10/12 mx-auto flex flex-row swiper">
                             <div class="flex swiper-wrapper">
                                 <template x-for="(num, index) in numberSteps" :key="index">
-                                    <div class="px-2 swiper-slide" x-data="{open: false}">
+                                    <div class="px-2 swiper-slide" x-data="{ open: false }">
                                         <p x-text="num" class="font-bold"></p>
                                         <div class="swiper-button-prev" @click="swiper.slidePrev()"><svg
                                                 viewBox="0 0 20 20" fill="currentColor" class="chevron-left w-2 h-2">
@@ -120,7 +120,7 @@
                                                     d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
                                                     clip-rule="evenodd"></path>
                                             </svg></div>
-                                        <input x-data="{inputValue: ''}" type="text" x-model="nameData.name"
+                                        <input x-data="{ inputValue: '' }" type="text" x-model="nameData.name"
                                             placeholder="Entrez le nom" x-init="inputValue = getInputValue(num)"
                                             :value="inputValue"
                                             class="bg-gray-100 rounded w-96 mx-auto mb-4 p-2 nameData-name"><br>
@@ -138,7 +138,10 @@
                                                 :class="{'translate-x-5': open}"></span>
                                         </button><br>
                                         <input class="bg-green-300 rounded text-1xl px-4 cursor-pointer" type="submit"
-                                            value="Suivante" @click="subStepHandler(num, swiper)">
+                                            value="Suivante" @click="
+                                            subStepHandler(num);
+                                            swiper.slideNext();
+                                            ">
                                         <div class="swiper-button-next" @click="swiper.slideNext()"><svg
                                                 viewBox="0 0 20 20" fill="currentColor" class="chevron-right w-2 h-2">
                                                 <path fill-rule="evenodd"
