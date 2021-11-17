@@ -51,7 +51,10 @@ function contactForm() {
             this.arrayNameData.people = [];
             for (let i = 1; i <= this.numberSteps; i++) {
                 let initializeInformation = {};
-                initializeInformation[i] = { name: '', isNewsletter: false };
+                initializeInformation[i] = {
+                    name: '',
+                    isNewsletter: false
+                };
                 this.arrayNameData.people.push(initializeInformation);
             }
             console.log(this.arrayNameData.people);
@@ -59,33 +62,25 @@ function contactForm() {
         },
 
         //dont need to return an array
-        subStepHandler(id) {
+        subStepHandler(id, valueName) {
             this.subStepErrors = [];
             let index = this.arrayNameData.people.find(x => x.hasOwnProperty(id));
 
-            if (!this.nameData.name) {
+            if (!valueName) {
                 this.subStepErrors.push('Entrez le nom!');
                 return this.subStepErrors;
             }
-            if (this.nameData.name) {
+            if (valueName) {
                 this.subStepErrors = [];
             }
 
             index[id] = {
-                name: this.nameData.name,
+                name: valueName,
                 isNewsletter: this.nameData.newsletter
             };
             this.nameData.newsletter = false;
             console.log(this.arrayNameData.people);
-        },
-
-        getInputValue(id) {
-            if (this.arrayNameData.people.length == 0) {
-                return '';
-            }
-            const index = this.arrayNameData.people.find(x => x.hasOwnProperty(id));
-            console.log(Object.values(index)[0].name)
-            return Object.values(index)[0].name;
+            swiper.slideNext();
         },
 
         // need to return an array
@@ -98,10 +93,15 @@ function contactForm() {
                 this.firstStepErrors.push('Tous les champs sont requis!');
                 return this.firstStepErrors;
             }
-            if (this.arrayNameData.people.length < this.numberSteps) {
-                this.secondStepErrors.push('Entrez tous les noms!');
-                return this.secondStepErrors;
-            }
+
+            this.arrayNameData.people.forEach(x => {
+                for (let i in x) {
+                    if (!x[i].name) {
+                        this.secondStepErrors.push('Entrez tous les noms!');
+                        return this.secondStepErrors;
+                    }
+                }
+            });
 
             let data = {
                 ...this.formData,
