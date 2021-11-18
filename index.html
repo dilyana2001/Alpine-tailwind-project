@@ -38,7 +38,6 @@
                             <li class="self-center"> <button class="openbtn pr-5" @click="show = !show" :aria-expanded="show ? 'true' : 'false'" :class="{'active' : show }"><i
                                         class="fas fa-bars"></i></button></li>
                         </ul>
-
                         <div class="w-96 fixed z-10 h-52 top-0 left-0 bg-gray-100 overflow-x-hidden delay-100 pt-10" x-show="show">
                             <ul class="nav-items flex flex-col justify-end items-left">
                                 <button class="openbtn place-self-start pl-2 fixed top-2" @click="show = !show" :aria-expanded="show ? 'true' : 'false'" :class="{'active' : show }">x</i></button>
@@ -82,10 +81,8 @@
             <p class="bg-green-400 rounded text-4xl font-bold text-center mx-auto mb-10 w-80">Une question ?</p>
             <p class="font-bold text-center text-xl mb-8">On vous répondra par email en quelques heures</p>
             <p class="text-center  text-xl mb-10">Les jours ouvrés du lundi au vendredi de 9h à 18h30</p>
-
             <div x-show="!successFinalMessage">
                 <div x-data="{isAllowed: false}">
-
                     <div x-show="!isAllowed" class="flex flex-col">
                         <input type="email" x-model="formData.email" placeholder="Votre e-mail" class="bg-gray-100 rounded w-96 mx-auto mb-4 p-2">
                         <input type="text" x-model="formData.question" placeholder="Quel est le sujet ?" class="bg-gray-100 rounded w-96 mx-auto  mb-4 p-2">
@@ -98,21 +95,12 @@
                         </div>
                         <input type="submit" value="Suivante" class="bg-green-400 rounded text-2xl font-bold py-2 px-24 cursor-pointer" @click="firstStepHandler().length == 0 ? isAllowed = !isAllowed : firstStepHandler">
                     </div>
-
-
-
                     <div x-show="isAllowed">
                         <div x-data="{swiper: null}" x-init="swiper = newSwiper()" class="relative w-10/12 mx-auto flex flex-row swiper">
                             <div class="flex swiper-wrapper">
                                 <template x-for="(num, index) in numberSteps" :key="index">
                                     <div class="px-2 swiper-slide" x-data="{ open: false , inputValue: ''}">
                                         <div class="swiper-button-prev" @click="swiper.slidePrev()">
-                                            <!-- <svg
-                                                viewBox="0 0 20 20" fill="currentColor" class="chevron-left w-6 h-6">
-                                               <path fill-rule="evenodd"
-                                                    d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                                                    clip-rule="evenodd"></path>
-                                           </svg> -->
                                         </div>
                                         <input type="text" x-model="inputValue" placeholder="Entrez le nom"
                                             value="inputValue"
@@ -133,12 +121,6 @@
                                         <input class="bg-green-300 rounded text-1xl px-4 cursor-pointer" type="submit"
                                             value="Suivante" @click="subStepHandler(num, inputValue)">
                                         <div class="swiper-button-next" @click="swiper.slideNext()">
-                                            <!-- <svg
-                                                viewBox="0 0 20 20" fill="currentColor" class="chevron-right w-6 h-6">
-                                                <path fill-rule="evenodd"
-                                                    d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                                                    clip-rule="evenodd"></path>
-                                            </svg> -->
                                         </div>
                                         <div class="font-bold text-red-400 pb-5">
                                             <template x-for="(err, i) in subStepErrors" :key="i">
@@ -150,8 +132,6 @@
                     </div>
                     <div class="swiper-pagination"></div>
                 </div>
-
-
                 <div class="font-bold text-red-400 pb-5">
                     <template x-for="(err, i) in firstStepErrors" :key="i">
                                 <p x-text="err"></p>
@@ -160,8 +140,6 @@
                                 <p x-text="err"></p>
                             </template>
                 </div>
-
-
                 <div class="pb-5">
                     <input type="submit" value="Précédent" class="bg-green-400 rounded text-2xl font-bold py-2 px-24 cursor-pointer" @click="isAllowed = !isAllowed">
                     <input type="submit" value="Envoyer" class="bg-green-400 rounded text-2xl font-bold py-2 px-24 cursor-pointer" @click="sendDataHandler().length > 0 ? isAllowed = true : isAllowed = false">
@@ -169,13 +147,9 @@
             </div>
         </div>
         </div>
+        <div x-show="successFinalMessage" class="font-bold text-4xl text-green-500 italic pt-5 pb-24" x-text="successMessage"></div>
         </div>
-
-
-        <div x-show="successFinalMessage" class="font-bold text-4xl text-green-500 italic pt-5 pb-24" x-text="successMessage"> </div>
-
         </div>
-
     </main>
 
     <footer class="pt-16 pb-5 bg-gray-100 text-xl text-gray-700 font-light">
