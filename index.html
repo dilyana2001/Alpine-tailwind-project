@@ -75,8 +75,8 @@
             </div>
         </div>
     </header>
-
-    <main class="container py-10 block w-max m-auto font-light">
+  
+        <main class="container py-10 block w-max m-auto font-light">
         <div class="text-center" x-data="contactForm">
             <p class="bg-green-400 rounded text-4xl font-bold text-center mx-auto mb-10 w-80">Une question ?</p>
             <p class="font-bold text-center text-xl mb-8">On vous répondra par email en quelques heures</p>
@@ -84,19 +84,27 @@
             <div x-show="!successFinalMessage">
                 <div x-data="{isAllowed: false}">
                     <div x-show="!isAllowed" class="flex flex-col">
-                        <input type="email" x-model="formData.email" placeholder="Votre e-mail" class="bg-gray-100 rounded w-96 mx-auto mb-4 p-2">
-                        <input type="text" x-model="formData.question" placeholder="Quel est le sujet ?" class="bg-gray-100 rounded w-96 mx-auto  mb-4 p-2">
-                        <textarea x-model="formData.message" placeholder="Votre message" rows="5" id="" class="bg-gray-100 rounded w-96 mx-auto  mb-5 p-2"></textarea>
-                        <input type="text" x-model.number="numberSteps" placeholder="Entrez le nombre de membres de la famille" class="bg-gray-100 rounded w-96 mx-auto  mb-4 p-2">
+                        <input type="email" x-model="formData.email" placeholder="Votre e-mail"
+                            class="bg-gray-100 rounded w-96 mx-auto mb-4 p-2">
+                        <input type="text" x-model="formData.question" placeholder="Quel est le sujet ?"
+                            class="bg-gray-100 rounded w-96 mx-auto  mb-4 p-2">
+                        <textarea x-model="formData.message" placeholder="Votre message" rows="5" id=""
+                            class="bg-gray-100 rounded w-96 mx-auto  mb-5 p-2"></textarea>
+                        <input type="text" x-model.number="numberSteps"
+                            placeholder="Entrez le nombre de membres de la famille"
+                            class="bg-gray-100 rounded w-96 mx-auto  mb-4 p-2">
                         <div class="font-bold text-red-400 pb-5">
                             <template x-for="(err, i) in firstStepErrors" :key="i">
                                 <p x-text="err"></p>
                             </template>
                         </div>
-                        <input type="submit" value="Suivante" class="bg-green-400 rounded text-2xl font-bold py-2 px-24 cursor-pointer" @click="firstStepHandler().length == 0 ? isAllowed = !isAllowed : firstStepHandler">
+                        <input type="submit" value="Suivante"
+                            class="bg-green-400 rounded text-2xl font-bold py-2 px-24 cursor-pointer"
+                            @click="firstStepHandler().length == 0 ? isAllowed = !isAllowed : firstStepHandler">
                     </div>
                     <div x-show="isAllowed">
-                        <div x-data="{swiper: null}" x-init="swiper = newSwiper()" class="relative w-10/12 mx-auto flex flex-row swiper">
+                        <div x-data="{swiper: null}" x-init="swiper = newSwiper()"
+                            class="relative w-10/12 mx-auto flex flex-row swiper">
                             <div class="flex swiper-wrapper">
                                 <template x-for="(num, index) in numberSteps" :key="index">
                                     <div class="px-2 swiper-slide" x-data="{ open: false , inputValue: ''}">
@@ -126,32 +134,37 @@
                                             <template x-for="(err, i) in subStepErrors" :key="i">
                                                 <p x-text="err"></p>
                                             </template>
+                                        </div>
+                                    </div>
+                                </template>
                             </div>
+                            <div class="swiper-pagination"></div>
                         </div>
-                        </template>
+                        <div class="font-bold text-red-400 pb-5">
+                            <template x-for="(err, i) in firstStepErrors" :key="i">
+                                <p x-text="err"></p>
+                            </template>
+                            <template x-for="(err, i) in secondStepErrors" :key="i">
+                                <p x-text="err"></p>
+                            </template>
+                        </div>
+                        <div class="pb-5">
+                            <input type="submit" value="Précédent"
+                                class="bg-green-400 rounded text-2xl font-bold py-2 px-24 cursor-pointer"
+                                @click="isAllowed = !isAllowed">
+                            <input type="submit" value="Envoyer"
+                                class="bg-green-400 rounded text-2xl font-bold py-2 px-24 cursor-pointer"
+                                @click="sendDataHandler().length > 0 ? isAllowed = true : isAllowed = false">
+                        </div>
                     </div>
-                    <div class="swiper-pagination"></div>
-                </div>
-                <div class="font-bold text-red-400 pb-5">
-                    <template x-for="(err, i) in firstStepErrors" :key="i">
-                                <p x-text="err"></p>
-                            </template>
-                    <template x-for="(err, i) in secondStepErrors" :key="i">
-                                <p x-text="err"></p>
-                            </template>
-                </div>
-                <div class="pb-5">
-                    <input type="submit" value="Précédent" class="bg-green-400 rounded text-2xl font-bold py-2 px-24 cursor-pointer" @click="isAllowed = !isAllowed">
-                    <input type="submit" value="Envoyer" class="bg-green-400 rounded text-2xl font-bold py-2 px-24 cursor-pointer" @click="sendDataHandler().length > 0 ? isAllowed = true : isAllowed = false">
                 </div>
             </div>
-        </div>
-        </div>
-        <div x-show="successFinalMessage" class="font-bold text-4xl text-green-500 italic pt-5 pb-24" x-text="successMessage"></div>
+            <div x-show="successFinalMessage" class="font-bold text-4xl text-green-500 italic pt-5 pb-24"
+                x-text="successMessage"></div>
         </div>
         </div>
     </main>
-
+    
     <footer class="pt-16 pb-5 bg-gray-100 text-xl text-gray-700 font-light">
         <div>
             <nav class="grid md:flex place-items-center md:place-items-start max-w-screen-xl my-0 mx-auto justify-between flex-wrap footer-widget">
