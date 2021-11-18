@@ -56,9 +56,6 @@ function contactForm() {
                 return this.firstStepErrors;
             }
 
-            let oldArray = [...this.arrayNameData.people];
-            this.arrayNameData.people = [...oldArray];
-
             if (!this.arrayNameData.people.length) {
                 for (let i = 1; i <= this.numberSteps; i++) {
                     let initializeInformation = {};
