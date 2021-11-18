@@ -6,7 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="/src/images/favicon.png">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+        integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
 
     <link rel="stylesheet" href="/src/styles/style.css">
     <script src="/src/scripts/script.js" defer></script>
@@ -32,15 +33,20 @@
                                 <a href="#"> <img src="/src/images/service.png" alt=""></a>
                             </li>
                             <li class="mx-6 font-bold text-xs lg:text-xl">
-                                <a href="#" class="flex bg-green-400 pt-2.5 pl-1 pb-2 lg:pb-1.5 pr-3 rounded"><img class="mx-1 ml-1.5 w-3.5 h-3.5 lg:w-7 lg:h-7" src="/src/images/phone.svg" alt="">
+                                <a href="#" class="flex bg-green-400 pt-2.5 pl-1 pb-2 lg:pb-1.5 pr-3 rounded"><img
+                                        class="mx-1 ml-1.5 w-3.5 h-3.5 lg:w-7 lg:h-7" src="/src/images/phone.svg"
+                                        alt="">
                                     <span class="pl-2 pr-1">09 800 89 800</span> </a>
                             </li>
-                            <li class="self-center"> <button class="openbtn pr-5" @click="show = !show" :aria-expanded="show ? 'true' : 'false'" :class="{'active' : show }"><i
+                            <li class="self-center"> <button class="openbtn pr-5" @click="show = !show"
+                                    :aria-expanded="show ? 'true' : 'false'" :class="{'active' : show }"><i
                                         class="fas fa-bars"></i></button></li>
                         </ul>
-                        <div class="w-96 fixed z-10 h-52 top-0 left-0 bg-gray-100 overflow-x-hidden delay-100 pt-10" x-show="show">
+                        <div class="w-96 fixed z-10 h-52 top-0 left-0 bg-gray-100 overflow-x-hidden delay-100 pt-10"
+                            x-show="show">
                             <ul class="nav-items flex flex-col justify-end items-left">
-                                <button class="openbtn place-self-start pl-2 fixed top-2" @click="show = !show" :aria-expanded="show ? 'true' : 'false'" :class="{'active' : show }">x</i></button>
+                                <button class="openbtn place-self-start pl-2 fixed top-2" @click="show = !show"
+                                    :aria-expanded="show ? 'true' : 'false'" :class="{'active' : show }">x</i></button>
                                 <li class="mx-6 font-bold text-sm mb-4 justify-between"><a href="#">Comment ça marche
                                         ?</a></li>
                                 <li class="login mx-6 font-bold text-sm mb-4"> <a href="#"><i
@@ -50,7 +56,8 @@
                                     <a href="#"> <img src="/src/images/service.png" alt=""></a>
                                 </li>
                                 <li class="mx-6 font-bold text-sm mb-3">
-                                    <a href="#" class="flex bg-green-400 p-1 pt-1.5 rounded w-36"><img class="w-4" src="/src/images/phone.svg" alt="">
+                                    <a href="#" class="flex bg-green-400 p-1 pt-1.5 rounded w-36"><img class="w-4"
+                                            src="/src/images/phone.svg" alt="">
                                         <span class="pl-2 pr-1">09 800 89 800</span> </a>
                                 </li>
                             </ul>
@@ -66,7 +73,8 @@
                                 <a href="#"> <img src="/src/images/service.png" alt=""></a>
                             </li>
                             <li class="mx-6 font-bold text-xl">
-                                <a href="#" class="flex bg-green-400 pt-2.5 pl-1 pb-1.5 pr-3 rounded"><img class="mx-1 ml-1.5" src="/src/images/phone.svg" alt="">
+                                <a href="#" class="flex bg-green-400 pt-2.5 pl-1 pb-1.5 pr-3 rounded"><img
+                                        class="mx-1 ml-1.5" src="/src/images/phone.svg" alt="">
                                     <span class="pl-2 pr-1">09 800 89 800</span> </a>
                             </li>
                         </ul>
@@ -75,8 +83,8 @@
             </div>
         </div>
     </header>
-  
-        <main class="container py-10 block w-max m-auto font-light">
+
+    <main class="container py-10 block w-max m-auto font-light">
         <div class="text-center" x-data="contactForm">
             <p class="bg-green-400 rounded text-4xl font-bold text-center mx-auto mb-10 w-80">Une question ?</p>
             <p class="font-bold text-center text-xl mb-8">On vous répondra par email en quelques heures</p>
@@ -164,10 +172,11 @@
         </div>
         </div>
     </main>
-    
+
     <footer class="pt-16 pb-5 bg-gray-100 text-xl text-gray-700 font-light">
         <div>
-            <nav class="grid md:flex place-items-center md:place-items-start max-w-screen-xl my-0 mx-auto justify-between flex-wrap footer-widget">
+            <nav
+                class="grid md:flex place-items-center md:place-items-start max-w-screen-xl my-0 mx-auto justify-between flex-wrap footer-widget">
                 <ul class="mx-6 text-center grid-column-1-3 mb-14">
                     <li class="px-5">
                         <a href="#"><img src="/src/images/logo.svg" alt=""></a>
