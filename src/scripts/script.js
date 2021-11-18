@@ -25,14 +25,15 @@ function contactForm() {
                     el: '.swiper-pagination',
                     type: 'bullets',
                     clickable: true,
+                    renderBullet: function(index, className) {
+                        return `<span class="${className}">${index + 1}</span>`;
+                    },
                 },
                 loop: true,
                 followFinger: true,
                 slidesPerView: 1,
-                spaceBetween: 30,
                 noSwiping: true,
-                onlyExternal: true,
-                noSwipingClass: 'swiper-slide'
+                noSwipingClass: 'swiper-slide',
             })
         },
 
@@ -42,31 +43,24 @@ function contactForm() {
             this.successMessage = '';
             if (!this.formData.email || !this.formData.question || !this.formData.message || !this.numberSteps) {
                 this.firstStepErrors.push('Tous les champs sont requis !');
+            } else {
+                if (!this.formData.email.match(/[a-z\d]+[.]?[_]?[-]?[a-z\d]+@{1}[a-z]+[-]?[a-z]+[.]?[a-z]+[.][a-z]+/)) {
+                    this.firstStepErrors.push(`S'il vous plaît, mettez une adresse email valide !`);
+                }
+                if (this.formData.question.length < 5 || this.formData.message.length < 5) {
+                    this.firstStepErrors.push('La question et le message doivent comporter au moins cinq caractères !');
+                }
+                if (typeof this.numberSteps != 'number') {
+                    this.firstStepErrors.push('Veuillez saisir un numéro !');
+                }
+                if (this.firstStepErrors.length > 0) {
+                    return this.firstStepErrors;
+                }
             }
-            if (!this.formData.email.match(/[a-z\d]+[.]?[_]?[-]?[a-z\d]+@{1}[a-z]+[-]?[a-z]+[.]?[a-z]+[.][a-z]+/)) {
-                this.firstStepErrors.push(`S'il vous plaît, mettez une adresse email valide !`);
-            }
-            if (this.formData.question.length < 5 || this.formData.message.length < 5) {
-                this.firstStepErrors.push('La question et le message doivent comporter au moins cinq caractères !');
-            }
-            if (typeof this.numberSteps != 'number') {
-                this.firstStepErrors.push('Veuillez saisir un numéro !');
-            }
-            if (this.firstStepErrors.length > 0) {
-                return this.firstStepErrors;
-            }
-
-            let oldArray = [...this.arrayNameData.people];
-            this.arrayNameData.people = [...oldArray];
 
             if (!this.arrayNameData.people.length) {
                 for (let i = 1; i <= this.numberSteps; i++) {
-                    let initializeInformation = {};
-                    initializeInformation[i] = {
-                        name: '',
-                        isNewsletter: false
-                    };
-                    this.arrayNameData.people.push(initializeInformation);
+                    this.inicializeEmptryObject(i);
                 }
             }
 
@@ -76,14 +70,8 @@ function contactForm() {
 
             if (this.arrayNameData.people.length < this.numberSteps) {
                 for (let i = this.arrayNameData.people.length + 1; i <= this.numberSteps; i++) {
-                    let initializeInformation = {};
-                    initializeInformation[i] = {
-                        name: '',
-                        isNewsletter: false
-                    };
-                    this.arrayNameData.people.push(initializeInformation);
+                    this.inicializeEmptryObject(i);
                 }
-                this.arrayNameData.people
             }
 
             console.log(this.arrayNameData.people);
@@ -92,17 +80,18 @@ function contactForm() {
 
         //dont need to return an array
         subStepHandler(id, valueName) {
+
             this.subStepErrors = [];
             this.secondStepErrors = [];
-            let index = this.arrayNameData.people.find(x => x.hasOwnProperty(id));
 
-            if (!valueName || valueName.trim() == '') {
+            let index = this.arrayNameData.people.find(x => x.hasOwnProperty(id));
+            valueName = valueName.trim();
+
+            if (!valueName) {
                 this.subStepErrors.push('Entrez le nom !');
                 return this.subStepErrors;
             }
-            if (valueName) {
-                this.subStepErrors = [];
-            }
+            this.subStepErrors = [];
 
             index[id] = {
                 name: valueName,
@@ -119,13 +108,13 @@ function contactForm() {
             this.firstStepErrors = [];
             this.secondStepErrors = [];
             this.successMessage = '';
+            let emptySlots = [];
 
             if (!this.formData.email || !this.formData.question || !this.formData.message || !this.numberSteps) {
                 this.firstStepErrors.push('Tous les champs sont requis !');
                 return this.firstStepErrors;
             }
 
-            let emptySlots = [];
             this.arrayNameData.people.forEach(x => {
                 for (let i in x) {
                     if (x[i].name.trim() == '') {
@@ -135,14 +124,10 @@ function contactForm() {
             });
 
             if (emptySlots.length > 0) {
-                emptySlots.map(x => {
-                    this.secondStepErrors.push(`Entrez tous les noms de la ligne ${x} !`);
-                })
+                emptySlots.map(x => this.secondStepErrors.push(`Entrez tous les noms de la ligne ${x} !`));
                 return this.secondStepErrors;
             }
-            if (emptySlots.length == 0) {
-                this.secondStepErrors = [];
-            }
+            this.secondStepErrors = [];
 
             let data = {
                 ...this.formData,
@@ -157,10 +142,6 @@ function contactForm() {
                     body: JSON.stringify(data)
                 })
                 .then(() => {
-                    this.formData.email = '';
-                    this.formData.question = '';
-                    this.formData.message = '';
-                    this.numberSteps = '';
                     this.successFinalMessage = true;
                     this.successMessage = 'Merci! Votre question a été envoyée avec succès !';
                 })
@@ -170,6 +151,15 @@ function contactForm() {
                     }
                     return this.firstStepErrors.concat(this.secondStepErrors);
                 });
+        },
+
+        inicializeEmptryObject(i) {
+            let person = {};
+            person[i] = {
+                name: '',
+                isNewsletter: false
+            };
+            this.arrayNameData.people.push(person);
         },
     }
 }
