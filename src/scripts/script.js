@@ -6,8 +6,11 @@ function contactForm() {
             email: '',
             question: '',
             message: '',
+            phone: '',
         },
+        fullNumber: '',
         nameData: {
+            title: '',
             name: '',
             newsletter: false,
         },
@@ -39,7 +42,9 @@ function contactForm() {
 
         // need to return an array
         firstStepHandler() {
+            this.secondStepErrors = [];
             this.firstStepErrors = [];
+            this.subStepErrors = [];
             this.successMessage = '';
             if (!this.formData.email || !this.formData.question || !this.formData.message || !this.numberSteps) {
                 this.firstStepErrors.push('Tous les champs sont requis !');
@@ -51,7 +56,10 @@ function contactForm() {
                     this.firstStepErrors.push('La question et le message doivent comporter au moins cinq caractères !');
                 }
                 if (typeof this.numberSteps != 'number') {
-                    this.firstStepErrors.push('Veuillez saisir un numéro !');
+                    this.firstStepErrors.push('La familia Veuillez saisir un numéro !');
+                }
+                if (typeof this.formData.phone != 'number') {
+                    this.firstStepErrors.push('La phone numero Veuillez saisir un numéro !');
                 }
                 if (this.firstStepErrors.length > 0) {
                     return this.firstStepErrors;
@@ -60,8 +68,10 @@ function contactForm() {
 
             if (!this.arrayNameData.people.length) {
                 for (let i = 1; i <= this.numberSteps; i++) {
-                    this.inicializeEmptryObject(i);
+                    this.inicializeEmptyObject(i);
                 }
+                console.log(this.arrayNameData.people);
+                return this.firstStepErrors;
             }
 
             if (this.arrayNameData.people.length > this.numberSteps) {
@@ -70,7 +80,7 @@ function contactForm() {
 
             if (this.arrayNameData.people.length < this.numberSteps) {
                 for (let i = this.arrayNameData.people.length + 1; i <= this.numberSteps; i++) {
-                    this.inicializeEmptryObject(i);
+                    this.inicializeEmptyObject(i);
                 }
             }
 
@@ -79,7 +89,7 @@ function contactForm() {
         },
 
         //dont need to return an array
-        subStepHandler(id, valueName) {
+        subStepHandler(id, valueName, title) {
 
             this.subStepErrors = [];
             this.secondStepErrors = [];
@@ -94,6 +104,7 @@ function contactForm() {
             this.subStepErrors = [];
 
             index[id] = {
+                title: title,
                 name: valueName,
                 isNewsletter: this.nameData.newsletter
             };
@@ -153,9 +164,10 @@ function contactForm() {
                 });
         },
 
-        inicializeEmptryObject(i) {
+        inicializeEmptyObject(i) {
             let person = {};
             person[i] = {
+                title: '',
                 name: '',
                 isNewsletter: false
             };
