@@ -6,9 +6,9 @@ function contactForm() {
             email: '',
             question: '',
             message: '',
-            phone: '',
+            fullNumber: ''
         },
-        fullNumber: '',
+        phone: '',
         nameData: {
             title: '',
             name: '',
@@ -21,6 +21,16 @@ function contactForm() {
         subStepErrors: [],
         secondStepErrors: [],
         successFinalMessage: false,
+        emptySlots: [],
+
+        // getPhoneNumber() {
+        //     return intlTelInput('#phone', {
+        //         initialCountry: "fr",
+        //         separateDialCode: true,
+        //         nationalMode: true,
+        //         utilsScript: "../src/images/intl-tel-input-17.0.0/build/js/utils.js",
+        //     })
+        // },
 
         newSwiper() {
             return swiper = new Swiper('.swiper', {
@@ -28,7 +38,7 @@ function contactForm() {
                     el: '.swiper-pagination',
                     type: 'bullets',
                     clickable: true,
-                    renderBullet: function(index, className) {
+                    renderBullet: function (index, className) {
                         return `<span class="${className}">${index + 1}</span>`;
                     },
                 },
@@ -58,7 +68,7 @@ function contactForm() {
                 if (typeof this.numberSteps != 'number') {
                     this.firstStepErrors.push('La familia Veuillez saisir un numéro !');
                 }
-                if (typeof this.formData.phone != 'number') {
+                if (typeof this.phone != 'number') {
                     this.firstStepErrors.push('La phone numero Veuillez saisir un numéro !');
                 }
                 if (this.firstStepErrors.length > 0) {
@@ -84,13 +94,18 @@ function contactForm() {
                 }
             }
 
+            let code = document.querySelector('.iti__selected-dial-code');
+
+            this.formData.fullNumber = code.textContent + ' ' + this.phone;
+            console.log(this.formData.fullNumber)
+
             console.log(this.arrayNameData.people);
             return this.firstStepErrors;
         },
 
         //dont need to return an array
         subStepHandler(id, valueName, title) {
-
+            let swiperBullets = document.querySelectorAll('.swiper-pagination-bullet');
             this.subStepErrors = [];
             this.secondStepErrors = [];
 
@@ -109,6 +124,8 @@ function contactForm() {
                 isNewsletter: this.nameData.newsletter
             };
 
+            swiperBullets[id - 1].classList.remove('error-bullet');
+
             this.nameData.newsletter = false;
             console.log(this.arrayNameData.people);
             swiper.slideNext();
@@ -116,10 +133,11 @@ function contactForm() {
 
         // need to return an array
         sendDataHandler() {
+            this.subStepErrors = [];
             this.firstStepErrors = [];
             this.secondStepErrors = [];
             this.successMessage = '';
-            let emptySlots = [];
+            this.emptySlots = [];
 
             if (!this.formData.email || !this.formData.question || !this.formData.message || !this.numberSteps) {
                 this.firstStepErrors.push('Tous les champs sont requis !');
@@ -129,16 +147,19 @@ function contactForm() {
             this.arrayNameData.people.forEach(x => {
                 for (let i in x) {
                     if (x[i].name.trim() == '') {
-                        emptySlots.push(`${i}`);
+                        this.emptySlots.push(`${i}`);
                     }
                 }
             });
 
-            if (emptySlots.length > 0) {
-                emptySlots.map(x => this.secondStepErrors.push(`Entrez tous les noms de la ligne ${x} !`));
+            if (this.emptySlots.length > 0) {
+                this.secondStepErrors.push('Enter all names!');
+                let swiperBullets = document.querySelectorAll('.swiper-pagination-bullet');
+                this.emptySlots.map((x) => {
+                    swiperBullets[x - 1].classList.add('error-bullet');
+                })
                 return this.secondStepErrors;
             }
-            this.secondStepErrors = [];
 
             let data = {
                 ...this.formData,
@@ -146,12 +167,12 @@ function contactForm() {
             };
 
             return fetch('https://jsonplaceholder.typicode.com/todos', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(data)
-                })
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
                 .then(() => {
                     this.successFinalMessage = true;
                     this.successMessage = 'Merci! Votre question a été envoyée avec succès !';

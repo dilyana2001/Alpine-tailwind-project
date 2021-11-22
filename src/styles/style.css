@@ -40,7 +40,7 @@
     }
     
     .swiper-pagination-bullet {
-        color: black !important;
+        color: rgb(0, 0, 0) !important;
         padding: 10px 10px;
         background: transparent !important;
         font-size: 15px;
@@ -55,4 +55,8 @@
     body>main>div>div:nth-child(4)>div>div.flex.flex-col>div.iti.iti--allow-dropdown>div>div {
         margin-left: 30px;
         ;
+    }
+    
+    .error-bullet {
+        color: rgb(228, 27, 27) !important;
     }
