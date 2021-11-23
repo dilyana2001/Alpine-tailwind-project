@@ -88,10 +88,7 @@
                         <input type="email" x-model="formData.email" placeholder="Votre e-mail" class="bg-gray-100 rounded w-96 mx-auto mb-4 p-2">
                         <input type="text" x-model="formData.question" placeholder="Quel est le sujet ?" class="bg-gray-100 rounded w-96 mx-auto mb-4 p-2">
                         <textarea x-model="formData.message" placeholder="Votre message" rows="5" id="" class="bg-gray-100 rounded w-96 mx-auto mb- p-2"></textarea>
-
-                        <!-- phone -->
                         <input type="tel" id="phone" x-model.number="phone" placeholder="Votre phone" class="bg-gray-100 rounded w-96 mx-auto mb-4 p-2">
-
                         <input type="text" x-model.number="numberSteps" placeholder="Entrez le nombre de membres de la famille" class="bg-gray-100 rounded w-96 mx-auto mb-4 mt-4 p-2">
                         <div class="font-bold text-red-400 pb-5">
                             <template x-for="(err, i) in firstStepErrors" :key="i">
@@ -109,15 +106,12 @@
                                         <div class="swiper-button-prev" @click="swiper.slidePrev()">
                                         </div>
 
-                                        <!-- title -->
                                         <select class="w-96 mx-auto mt-10 mb-0" @click="isOpen = !isOpen"
                                             @keydown.escape="isOpen = false" x-model="title" class="flex items-center">
                                             <option value="gender">Select title</option>
                                             <option value="miss">Miss</option>
                                             <option value="mister">Mister</option>
                                         </select><br>
-
-
                                         <input type="text" x-model="inputValue" placeholder="Entrez le nom"
                                             value="inputValue"
                                             class="bg-gray-100 rounded w-96  mx-auto mt-1 mb-4 p-2"><br>
@@ -214,8 +208,8 @@
         </div>
     </footer>
     <script>
-        var input = document.querySelector('#phone');
-        var iti = window.intlTelInput(input, {
+        let input = document.querySelector('#phone');
+        let iti = window.intlTelInput(input, {
             initialCountry: "fr",
             separateDialCode: true,
             nationalMode: true,
