@@ -23,15 +23,6 @@ function contactForm() {
         successFinalMessage: false,
         emptySlots: [],
 
-        // getPhoneNumber() {
-        //     return intlTelInput('#phone', {
-        //         initialCountry: "fr",
-        //         separateDialCode: true,
-        //         nationalMode: true,
-        //         utilsScript: "../src/images/intl-tel-input-17.0.0/build/js/utils.js",
-        //     })
-        // },
-
         newSwiper() {
             return swiper = new Swiper('.swiper', {
                 pagination: {
@@ -95,9 +86,7 @@ function contactForm() {
             }
 
             let code = document.querySelector('.iti__selected-dial-code');
-
             this.formData.fullNumber = code.textContent + ' ' + this.phone;
-            console.log(this.formData.fullNumber)
 
             console.log(this.arrayNameData.people);
             return this.firstStepErrors;
