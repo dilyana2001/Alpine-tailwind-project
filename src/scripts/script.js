@@ -23,15 +23,6 @@ function contactForm() {
         successFinalMessage: false,
         emptySlots: [],
 
-        // getPhoneNumber() {
-        //     return intlTelInput('#phone', {
-        //         initialCountry: "fr",
-        //         separateDialCode: true,
-        //         nationalMode: true,
-        //         utilsScript: "../src/images/intl-tel-input-17.0.0/build/js/utils.js",
-        //     })
-        // },
-
         newSwiper() {
             return swiper = new Swiper('.swiper', {
                 pagination: {
@@ -47,7 +38,7 @@ function contactForm() {
                 slidesPerView: 1,
                 noSwiping: true,
                 noSwipingClass: 'swiper-slide',
-            })
+            });
         },
 
         // need to return an array
@@ -56,6 +47,7 @@ function contactForm() {
             this.firstStepErrors = [];
             this.subStepErrors = [];
             this.successMessage = '';
+
             if (!this.formData.email || !this.formData.question || !this.formData.message || !this.numberSteps) {
                 this.firstStepErrors.push('Tous les champs sont requis !');
             } else {
@@ -95,9 +87,7 @@ function contactForm() {
             }
 
             let code = document.querySelector('.iti__selected-dial-code');
-
             this.formData.fullNumber = code.textContent + ' ' + this.phone;
-            console.log(this.formData.fullNumber)
 
             console.log(this.arrayNameData.people);
             return this.firstStepErrors;
@@ -116,6 +106,7 @@ function contactForm() {
                 this.subStepErrors.push('Entrez le nom !');
                 return this.subStepErrors;
             }
+
             this.subStepErrors = [];
 
             index[id] = {
@@ -153,7 +144,7 @@ function contactForm() {
             });
 
             if (this.emptySlots.length > 0) {
-                this.secondStepErrors.push('Enter all names!');
+                this.secondStepErrors.push('Entrez tous les noms !');
                 let swiperBullets = document.querySelectorAll('.swiper-pagination-bullet');
                 this.emptySlots.map((x) => {
                     swiperBullets[x - 1].classList.add('error-bullet');
