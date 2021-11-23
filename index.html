@@ -88,7 +88,7 @@
                         <input type="email" x-model="formData.email" placeholder="Votre e-mail" class="bg-gray-100 rounded w-96 mx-auto mb-4 p-2">
                         <input type="text" x-model="formData.question" placeholder="Quel est le sujet ?" class="bg-gray-100 rounded w-96 mx-auto mb-4 p-2">
                         <textarea x-model="formData.message" placeholder="Votre message" rows="5" id="" class="bg-gray-100 rounded w-96 mx-auto mb- p-2"></textarea>
-                        <input type="tel" id="phone" x-model.number="phone" placeholder="Votre phone" class="bg-gray-100 rounded w-96 mx-auto mb-4 p-2">
+                        <input type="tel" id="phone" x-model="phone" placeholder="Votre phone" class="bg-gray-100 rounded w-96 mx-auto mb-4 p-2">
                         <input type="text" x-model.number="numberSteps" placeholder="Entrez le nombre de membres de la famille" class="bg-gray-100 rounded w-96 mx-auto mb-4 mt-4 p-2">
                         <div class="font-bold text-red-400 pb-5">
                             <template x-for="(err, i) in firstStepErrors" :key="i">
@@ -102,19 +102,30 @@
                             <div class="flex swiper-wrapper">
                                 <template x-for="(num, index) in numberSteps" :key="index">
                                     <div class="px-2 swiper-slide"
-                                        x-data="{ open: false , inputValue: '', title: '', isOpen: false }">
+                                        x-data="{ open: false , nameValue: '', title: '', isOpen: false, dateValue: '' }">
                                         <div class="swiper-button-prev" @click="swiper.slidePrev()">
                                         </div>
 
-                                        <select class="w-96 mx-auto mt-10 mb-0" @click="isOpen = !isOpen"
+                                        <select class="bg-white w-96 mx-auto mt-10 mb-0" @click="isOpen = !isOpen"
                                             @keydown.escape="isOpen = false" x-model="title" class="flex items-center">
                                             <option value="gender">Select title</option>
                                             <option value="miss">Miss</option>
                                             <option value="mister">Mister</option>
                                         </select><br>
-                                        <input type="text" x-model="inputValue" placeholder="Entrez le nom"
-                                            value="inputValue"
-                                            class="bg-gray-100 rounded w-96  mx-auto mt-1 mb-4 p-2"><br>
+                                        <input type="text" x-model="nameValue" placeholder="Entrez le nom"
+                                            value="nameValue"
+                                            class="bg-gray-100 rounded w-96 mx-auto mt-1 mb-0 p-2"><br>
+
+                                        <!-- date -->
+                                        <div>
+                                            <label for="date" class=" w-96 font-normal text-left ">Entrez votre date de
+                                                naissance</label><br>
+                                            <input type="date" id="date" placeholder="Entrez votre date de naissance"
+                                                x-model="dateValue"
+                                                class="bg-gray-100 rounded w-96 mx-auto mb-4 p-2"><br>
+                                        </div>
+
+
                                         <label>Signer pour le journal</label>
                                         <button @click="open = !open"
                                             :x-model="open ? nameData.newsletter = true : nameData.newsletter = false"
@@ -129,11 +140,11 @@
                                                 :class="{'translate-x-5': open}"></span>
                                         </button><br>
                                         <input class="bg-green-300 rounded text-1xl px-4 cursor-pointer" type="submit"
-                                            value="Suivante" @click="subStepHandler(num, inputValue, title)">
+                                            value="Suivante" @click="subStepHandler(num, nameValue, title, dateValue)">
                                         <div class="swiper-button-next" @click="swiper.slideNext()">
                                         </div>
                                         <div class="font-bold text-red-400 pb-5">
-                                            <template x-for="(err, i) in subStepErrors" :key="i">
+                                            <template x-for="(err, i) in secondStepErrors" :key="i">
                                                 <p x-text="err"></p>
                                             </template>
                             </div>
@@ -144,9 +155,6 @@
                 </div>
                 <div class="font-bold text-red-400 pb-5">
                     <template x-for="(err, i) in firstStepErrors" :key="i">
-                                <p x-text="err"></p>
-                            </template>
-                    <template x-for="(err, i) in secondStepErrors" :key="i">
                                 <p x-text="err"></p>
                             </template>
                 </div>

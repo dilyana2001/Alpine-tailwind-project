@@ -13,12 +13,12 @@ function contactForm() {
             title: '',
             name: '',
             newsletter: false,
+            dateOfBirth: '',
         },
         arrayNameData: {
             people: []
         },
         firstStepErrors: [],
-        subStepErrors: [],
         secondStepErrors: [],
         successFinalMessage: false,
         emptySlots: [],
@@ -41,27 +41,31 @@ function contactForm() {
             });
         },
 
-        // need to return an array
         firstStepHandler() {
             this.secondStepErrors = [];
             this.firstStepErrors = [];
-            this.subStepErrors = [];
             this.successMessage = '';
 
-            if (!this.formData.email || !this.formData.question || !this.formData.message || !this.numberSteps) {
+            if (!this.formData.email || !this.formData.question || !this.formData.message || !this.numberSteps || !this.phone) {
                 this.firstStepErrors.push('Tous les champs sont requis !');
             } else {
+                if (this.numberSteps <= 0) {
+                    this.firstStepErrors.push('Le nombre de membres doit être un nombre positif !');
+                }
                 if (!this.formData.email.match(/[a-z\d]+[.]?[_]?[-]?[a-z\d]+@{1}[a-z]+[-]?[a-z]+[.]?[a-z]+[.][a-z]+/)) {
                     this.firstStepErrors.push(`S'il vous plaît, mettez une adresse email valide !`);
                 }
                 if (this.formData.question.length < 5 || this.formData.message.length < 5) {
-                    this.firstStepErrors.push('La question et le message doivent comporter au moins cinq caractères !');
+                    this.firstStepErrors.push('Question et message doivent comporter au cinq caractères!');
                 }
                 if (typeof this.numberSteps != 'number') {
-                    this.firstStepErrors.push('La familia Veuillez saisir un numéro !');
+                    this.firstStepErrors.push('Les membres de la famille doivent être un numéro !');
                 }
-                if (typeof this.phone != 'number') {
-                    this.firstStepErrors.push('La phone numero Veuillez saisir un numéro !');
+                if (this.numberSteps > 15) {
+                    this.firstStepErrors.push('Le nombre de membres doit être au maximum de quinze !');
+                }
+                if (!typeof Number(this.phone) == 'number') {
+                    this.firstStepErrors.push('Entrer un numéro de téléphone !');
                 }
                 if (this.firstStepErrors.length > 0) {
                     return this.firstStepErrors;
@@ -88,43 +92,69 @@ function contactForm() {
 
             let code = document.querySelector('.iti__selected-dial-code');
             this.formData.fullNumber = code.textContent + ' ' + this.phone;
+            console.log(this.formData.fullNumber);
 
             console.log(this.arrayNameData.people);
             return this.firstStepErrors;
         },
 
-        //dont need to return an array
-        subStepHandler(id, valueName, title) {
+        subStepHandler(id, nameValue, title, dateValue) {
             let swiperBullets = document.querySelectorAll('.swiper-pagination-bullet');
-            this.subStepErrors = [];
             this.secondStepErrors = [];
 
             let index = this.arrayNameData.people.find(x => x.hasOwnProperty(id));
-            valueName = valueName.trim();
+            nameValue = nameValue.trim();
 
-            if (!valueName) {
-                this.subStepErrors.push('Entrez le nom !');
-                return this.subStepErrors;
+            this.secondStepErrors = [];
+
+            if (!nameValue) {
+                this.secondStepErrors.push('Entrez le nom !');
+                return this.secondStepErrors;
             }
 
-            this.subStepErrors = [];
+            if (!dateValue) {
+                this.secondStepErrors.push('Entrez votre date de naissance !');
+                return this.secondStepErrors;
+            }
+
+            const regex = /(?<year>[\d]{4,})-(?<month>[\d]{2,})-(?<day>[\d]{2,})/;
+            const dateOfBirthObj = (regex).exec(dateValue);
+
+            if (!(dateValue).match(regex)) {
+                return;
+            }
+
+            const date = {
+                year: dateOfBirthObj.groups.year,
+                month: Number(dateOfBirthObj.groups.month) - 1,
+                day: Number(dateOfBirthObj.groups.day) + 1
+            };
+
+            const age = new Date(Date.now() - new Date(date.year, date.month, date.day).getTime()).getUTCFullYear() - 1970;
+
+            console.log(age);
+
+            if (age < 14) {
+                this.secondStepErrors.push('Le membre de la famille doit avoir 14 ans !');
+                return this.secondStepErrors;
+            }
 
             index[id] = {
                 title: title,
-                name: valueName,
+                name: nameValue,
+                dateOfBirth: dateValue,
                 isNewsletter: this.nameData.newsletter
             };
 
             swiperBullets[id - 1].classList.remove('error-bullet');
 
             this.nameData.newsletter = false;
+            console.log(dateValue)
             console.log(this.arrayNameData.people);
             swiper.slideNext();
         },
 
-        // need to return an array
         sendDataHandler() {
-            this.subStepErrors = [];
             this.firstStepErrors = [];
             this.secondStepErrors = [];
             this.successMessage = '';
@@ -181,6 +211,7 @@ function contactForm() {
             person[i] = {
                 title: '',
                 name: '',
+                dateOfBirth: '',
                 isNewsletter: false
             };
             this.arrayNameData.people.push(person);
