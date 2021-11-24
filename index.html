@@ -16,6 +16,7 @@
     <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
     <link rel="stylesheet" href="./src/images/intl-tel-input-17.0.0/build/css/intlTelInput.css">
     <script src="/src/images/intl-tel-input-17.0.0/build/js/intlTelInput.js"></script>
+    <script src="https://unpkg.com/moment@2.9.0/moment.js"></script>
     <title>Contact</title>
 </head>
 
@@ -101,7 +102,7 @@
                             class="bg-gray-100 rounded w-96 mx-auto mb- p-2"></textarea>
                         <input type="tel" id="phone" x-model="phone" placeholder="Votre phone"
                             class="bg-gray-100 rounded w-96 mx-auto mb-4 p-2">
-                        <input type="text" x-model.number="numberSteps"
+                        <input type="number" x-model.number="numberSteps"
                             placeholder="Entrez le nombre de membres de la famille"
                             class="bg-gray-100 rounded w-96 mx-auto mb-4 mt-4 p-2">
                         <div class="font-bold text-red-400 pb-5">
@@ -132,8 +133,6 @@
                                         <input type="text" x-model="nameValue" placeholder="Entrez le nom"
                                             value="nameValue"
                                             class="bg-gray-100 rounded w-96 mx-auto mt-1 mb-0 p-2"><br>
-
-                                        <!-- date -->
                                         <div>
                                             <label for="date" class=" w-96 font-normal text-left ">Entrez votre date de
                                                 naissance</label><br>
@@ -141,8 +140,6 @@
                                                 x-model="dateValue"
                                                 class="bg-gray-100 rounded w-96 mx-auto mb-4 p-2"><br>
                                         </div>
-
-
                                         <label>Signer pour le journal</label>
                                         <button @click="open = !open"
                                             :x-model="open ? nameData.newsletter = true : nameData.newsletter = false"
