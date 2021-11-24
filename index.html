@@ -6,7 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="/src/images/favicon.png">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+        integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
     <link rel="stylesheet" href="/src/styles/style.css">
     <script src="/src/scripts/script.js" defer></script>
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
@@ -33,15 +34,20 @@
                                 <a href="#"> <img src="/src/images/service.png" alt=""></a>
                             </li>
                             <li class="mx-6 font-bold text-xs lg:text-xl">
-                                <a href="#" class="flex bg-green-400 pt-2.5 pl-1 pb-2 lg:pb-1.5 pr-3 rounded"><img class="mx-1 ml-1.5 w-3.5 h-3.5 lg:w-7 lg:h-7" src="/src/images/phone.svg" alt="">
+                                <a href="#" class="flex bg-green-400 pt-2.5 pl-1 pb-2 lg:pb-1.5 pr-3 rounded"><img
+                                        class="mx-1 ml-1.5 w-3.5 h-3.5 lg:w-7 lg:h-7" src="/src/images/phone.svg"
+                                        alt="">
                                     <span class="pl-2 pr-1">09 800 89 800</span> </a>
                             </li>
-                            <li class="self-center"> <button class="openbtn pr-5" @click="show = !show" :aria-expanded="show ? 'true' : 'false'" :class="{'active' : show }"><i
+                            <li class="self-center"> <button class="openbtn pr-5" @click="show = !show"
+                                    :aria-expanded="show ? 'true' : 'false'" :class="{'active' : show }"><i
                                         class="fas fa-bars"></i></button></li>
                         </ul>
-                        <div class="w-96 fixed z-10 h-52 top-0 left-0 bg-gray-100 overflow-x-hidden delay-100 pt-10" x-show="show">
+                        <div class="w-96 fixed z-10 h-52 top-0 left-0 bg-gray-100 overflow-x-hidden delay-100 pt-10"
+                            x-show="show">
                             <ul class="nav-items flex flex-col justify-end items-left">
-                                <button class="openbtn place-self-start pl-2 fixed top-2" @click="show = !show" :aria-expanded="show ? 'true' : 'false'" :class="{'active' : show }">x</i></button>
+                                <button class="openbtn place-self-start pl-2 fixed top-2" @click="show = !show"
+                                    :aria-expanded="show ? 'true' : 'false'" :class="{'active' : show }">x</i></button>
                                 <li class="mx-6 font-bold text-sm mb-4 justify-between"><a href="#">Comment ça marche
                                         ?</a></li>
                                 <li class="login mx-6 font-bold text-sm mb-4"> <a href="#"><i
@@ -51,7 +57,8 @@
                                     <a href="#"> <img src="/src/images/service.png" alt=""></a>
                                 </li>
                                 <li class="mx-6 font-bold text-sm mb-3">
-                                    <a href="#" class="flex bg-green-400 p-1 pt-1.5 rounded w-36"><img class="w-4" src="/src/images/phone.svg" alt="">
+                                    <a href="#" class="flex bg-green-400 p-1 pt-1.5 rounded w-36"><img class="w-4"
+                                            src="/src/images/phone.svg" alt="">
                                         <span class="pl-2 pr-1">09 800 89 800</span> </a>
                                 </li>
                             </ul>
@@ -67,7 +74,8 @@
                                 <a href="#"> <img src="/src/images/service.png" alt=""></a>
                             </li>
                             <li class="mx-6 font-bold text-xl">
-                                <a href="#" class="flex bg-green-400 pt-2.5 pl-1 pb-1.5 pr-3 rounded"><img class="mx-1 ml-1.5" src="/src/images/phone.svg" alt="">
+                                <a href="#" class="flex bg-green-400 pt-2.5 pl-1 pb-1.5 pr-3 rounded"><img
+                                        class="mx-1 ml-1.5" src="/src/images/phone.svg" alt="">
                                     <span class="pl-2 pr-1">09 800 89 800</span> </a>
                             </li>
                         </ul>
@@ -85,20 +93,29 @@
             <div x-show="!successFinalMessage">
                 <div x-data="{isAllowed: false}">
                     <div x-show="!isAllowed" class="flex flex-col">
-                        <input type="email" x-model="formData.email" placeholder="Votre e-mail" class="bg-gray-100 rounded w-96 mx-auto mb-4 p-2">
-                        <input type="text" x-model="formData.question" placeholder="Quel est le sujet ?" class="bg-gray-100 rounded w-96 mx-auto mb-4 p-2">
-                        <textarea x-model="formData.message" placeholder="Votre message" rows="5" id="" class="bg-gray-100 rounded w-96 mx-auto mb- p-2"></textarea>
-                        <input type="tel" id="phone" x-model="phone" placeholder="Votre phone" class="bg-gray-100 rounded w-96 mx-auto mb-4 p-2">
-                        <input type="text" x-model.number="numberSteps" placeholder="Entrez le nombre de membres de la famille" class="bg-gray-100 rounded w-96 mx-auto mb-4 mt-4 p-2">
+                        <input type="email" x-model="formData.email" placeholder="Votre e-mail"
+                            class="bg-gray-100 rounded w-96 mx-auto mb-4 p-2">
+                        <input type="text" x-model="formData.question" placeholder="Quel est le sujet ?"
+                            class="bg-gray-100 rounded w-96 mx-auto mb-4 p-2">
+                        <textarea x-model="formData.message" placeholder="Votre message" rows="5" id=""
+                            class="bg-gray-100 rounded w-96 mx-auto mb- p-2"></textarea>
+                        <input type="tel" id="phone" x-model="phone" placeholder="Votre phone"
+                            class="bg-gray-100 rounded w-96 mx-auto mb-4 p-2">
+                        <input type="text" x-model.number="numberSteps"
+                            placeholder="Entrez le nombre de membres de la famille"
+                            class="bg-gray-100 rounded w-96 mx-auto mb-4 mt-4 p-2">
                         <div class="font-bold text-red-400 pb-5">
                             <template x-for="(err, i) in firstStepErrors" :key="i">
                                 <p x-text="err"></p>
                             </template>
                         </div>
-                        <input type="submit" value="Suivante" class="bg-green-400 rounded text-2xl font-bold py-2 px-24 cursor-pointer" @click="firstStepHandler().length == 0 ? isAllowed = !isAllowed : firstStepHandler">
+                        <input type="submit" value="Suivante"
+                            class="bg-green-400 rounded text-2xl font-bold py-2 px-24 cursor-pointer"
+                            @click="firstStepHandler().length == 0 ? isAllowed = !isAllowed : firstStepHandler">
                     </div>
                     <div x-show="isAllowed">
-                        <div x-data="{swiper: null}" x-init="swiper = newSwiper()" class="relative w-10/12 mx-auto flex flex-row swiper">
+                        <div x-data="{swiper: null}" x-init="swiper = newSwiper()"
+                            class="relative w-10/12 mx-auto flex flex-row swiper">
                             <div class="flex swiper-wrapper">
                                 <template x-for="(num, index) in numberSteps" :key="index">
                                     <div class="px-2 swiper-slide"
@@ -147,32 +164,38 @@
                                             <template x-for="(err, i) in secondStepErrors" :key="i">
                                                 <p x-text="err"></p>
                                             </template>
+                                        </div>
+                                    </div>
+                                </template>
                             </div>
+                            <div class="swiper-pagination"></div>
                         </div>
-                        </template>
-                    </div>
-                    <div class="swiper-pagination"></div>
-                </div>
-                <div class="font-bold text-red-400 pb-5">
-                    <template x-for="(err, i) in firstStepErrors" :key="i">
+                        <div class="font-bold text-red-400 pb-5">
+                            <template x-for="(err, i) in firstStepErrors" :key="i">
                                 <p x-text="err"></p>
                             </template>
-                </div>
-                <div class="pb-5">
-                    <input type="submit" value="Précédent" class="bg-green-400 rounded text-2xl font-bold py-2 px-24 cursor-pointer" @click="isAllowed = !isAllowed">
-                    <input type="submit" value="Envoyer" class="bg-green-400 rounded text-2xl font-bold py-2 px-24 cursor-pointer" @click="sendDataHandler().length > 0 ? isAllowed = true : isAllowed = false">
+                        </div>
+                        <div class="pb-5">
+                            <input type="submit" value="Précédent"
+                                class="bg-green-400 rounded text-2xl font-bold py-2 px-24 cursor-pointer"
+                                @click="isAllowed = !isAllowed">
+                            <input type="submit" value="Envoyer"
+                                class="bg-green-400 rounded text-2xl font-bold py-2 px-24 cursor-pointer"
+                                @click="sendDataHandler().length > 0 ? isAllowed = true : isAllowed = false">
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-        </div>
-        <div x-show="successFinalMessage" class="font-bold text-4xl text-green-500 italic pt-5 pb-24" x-text="successMessage"></div>
+            <div x-show="successFinalMessage" class="font-bold text-4xl text-green-500 italic pt-5 pb-24"
+                x-text="successMessage"></div>
         </div>
         </div>
     </main>
 
     <footer class="pt-16 pb-5 bg-gray-100 text-xl text-gray-700 font-light">
         <div>
-            <nav class="grid md:flex place-items-center md:place-items-start max-w-screen-xl my-0 mx-auto justify-between flex-wrap footer-widget">
+            <nav
+                class="grid md:flex place-items-center md:place-items-start max-w-screen-xl my-0 mx-auto justify-between flex-wrap footer-widget">
                 <ul class="mx-6 text-center grid-column-1-3 mb-14">
                     <li class="px-5">
                         <a href="#"><img src="/src/images/logo.svg" alt=""></a>
