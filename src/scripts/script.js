@@ -91,7 +91,7 @@ function contactForm() {
             }
 
             let code = document.querySelector('.iti__selected-dial-code');
-            this.formData.fullNumber = code.textContent + ' ' + this.phone;
+            this.formData.fullNumber = `${code.textContent}-${this.phone}`;
             console.log(this.formData.fullNumber);
 
             console.log(this.arrayNameData.people);
@@ -99,10 +99,10 @@ function contactForm() {
         },
 
         subStepHandler(id, nameValue, title, dateValue) {
-            let swiperBullets = document.querySelectorAll('.swiper-pagination-bullet');
             this.secondStepErrors = [];
 
             let index = this.arrayNameData.people.find(x => x.hasOwnProperty(id));
+
             nameValue = nameValue.trim();
 
             if (!nameValue) {
@@ -122,15 +122,13 @@ function contactForm() {
                 return;
             }
 
-            const date = {
-                year: dateOfBirthObj.groups.year,
-                month: Number(dateOfBirthObj.groups.month) - 1,
-                day: Number(dateOfBirthObj.groups.day) + 1
-            };
-
-            const age = new Date(Date.now() - new Date(date.year, date.month, date.day).getTime()).getUTCFullYear() - 1970;
-
+            const age = moment().diff(`${dateOfBirthObj.groups.year}-${dateOfBirthObj.groups.month}-${dateOfBirthObj.groups.day}`, 'years');
             console.log(age);
+
+            if (age < 0 || age > 120) {
+                this.secondStepErrors.push(`Entrez l'âge correct !`);
+                return this.secondStepErrors;
+            }
 
             if (age < 14) {
                 this.secondStepErrors.push('Le membre de la famille doit avoir 14 ans !');
@@ -144,11 +142,14 @@ function contactForm() {
                 isNewsletter: this.nameData.newsletter
             };
 
+            let swiperBullets = document.querySelectorAll('.swiper-pagination-bullet');
             swiperBullets[id - 1].classList.remove('error-bullet');
 
             this.nameData.newsletter = false;
+
             console.log(dateValue)
             console.log(this.arrayNameData.people);
+
             swiper.slideNext();
         },
 
@@ -158,7 +159,7 @@ function contactForm() {
             this.successMessage = '';
             this.emptySlots = [];
 
-            if (!this.formData.email || !this.formData.question || !this.formData.message || !this.numberSteps) {
+            if (!this.formData.email || !this.formData.question || !this.formData.message || !this.numberSteps || !this.phone) {
                 this.firstStepErrors.push('Tous les champs sont requis !');
                 return this.firstStepErrors;
             }
@@ -173,10 +174,12 @@ function contactForm() {
 
             if (this.emptySlots.length > 0) {
                 this.secondStepErrors.push('Entrez tous les noms !');
+
                 let swiperBullets = document.querySelectorAll('.swiper-pagination-bullet');
                 this.emptySlots.map((x) => {
                     swiperBullets[x - 1].classList.add('error-bullet');
                 })
+
                 return this.secondStepErrors;
             }
 
@@ -200,7 +203,7 @@ function contactForm() {
                     if (err) {
                         this.secondStepErrors.push(err);
                     }
-                    return this.firstStepErrors.concat(this.secondStepErrors);
+                    return this.secondStepErrors;
                 });
         },
 
