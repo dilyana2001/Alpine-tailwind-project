@@ -105,8 +105,6 @@ function contactForm() {
             let index = this.arrayNameData.people.find(x => x.hasOwnProperty(id));
             nameValue = nameValue.trim();
 
-            this.secondStepErrors = [];
-
             if (!nameValue) {
                 this.secondStepErrors.push('Entrez le nom !');
                 return this.secondStepErrors;
