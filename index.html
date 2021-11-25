@@ -9,14 +9,16 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
         integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
     <link rel="stylesheet" href="/src/styles/style.css">
-    <script src="/src/scripts/script.js" defer></script>
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
-    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
     <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
-    <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
     <link rel="stylesheet" href="./src/images/intl-tel-input-17.0.0/build/css/intlTelInput.css">
+
+    <script src="/src/scripts/script.js" defer></script>
+    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
     <script src="/src/images/intl-tel-input-17.0.0/build/js/intlTelInput.js"></script>
     <script src="https://unpkg.com/moment@2.9.0/moment.js"></script>
+
     <title>Contact</title>
 </head>
 
@@ -93,18 +95,72 @@
             <p class="text-center  text-xl mb-10">Les jours ouvrés du lundi au vendredi de 9h à 18h30</p>
             <div x-show="!successFinalMessage">
                 <div x-data="{isAllowed: false}">
-                    <div x-show="!isAllowed" class="flex flex-col">
-                        <input type="email" x-model="formData.email" placeholder="Votre e-mail"
-                            class="bg-gray-100 rounded w-96 mx-auto mb-4 p-2">
+                    <div x-show="!isAllowed" class="flex flex-col ">
+
+                        <div class="flex relative">
+                            <input type="email" x-model="formData.email" placeholder="Votre e-mail"
+                                class="bg-gray-100 rounded w-96 mx-auto mb-4 p-2">
+                            <div class="absolute right-0 top-2">
+                                <div x-data="{tooltip: false}" class="relative flex flex-col items-center group"
+                                    @click="tooltip = !tooltip" @click.away="tooltip = false">
+                                    <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                                        fill="currentColor">
+                                        <path fill-rule="evenodd"
+                                            d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                    <div
+                                        class="absolute -top-1.5 left-6 flex flex-col items-center mb-6 group-hover:flex">
+                                        <span
+                                            class="relative w-44 z-10 p-2 text-xs leading-none text-black whitespace-no-wrap bg-white shadow-lg"
+                                            x-show="tooltip">
+                                            <span class="font-bold">Email</span><br>E-mail, question, message et étapes
+                                            sont requis !</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
                         <input type="text" x-model="formData.question" placeholder="Quel est le sujet ?"
                             class="bg-gray-100 rounded w-96 mx-auto mb-4 p-2">
                         <textarea x-model="formData.message" placeholder="Votre message" rows="5" id=""
                             class="bg-gray-100 rounded w-96 mx-auto mb- p-2"></textarea>
-                        <input type="tel" id="phone" x-model="phone" placeholder="Votre phone"
-                            class="bg-gray-100 rounded w-96 mx-auto mb-4 p-2">
+
+
+                        <div class="flex relative place-content-center">
+                            <div class="mt-4">
+                                <input type="tel" id="phone" x-model="phone" placeholder="Votre phone"
+                                    class="bg-gray-100 rounded w-96 mx-auto p-2">
+                            </div>
+                            <div class="absolute right-0 top-6">
+                                <div x-data="{tooltip: false}" class="relative flex flex-col items-center group"
+                                    @click="tooltip = !tooltip" @click.away="tooltip = false">
+                                    <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                                        fill="currentColor">
+                                        <path fill-rule="evenodd"
+                                            d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                    <div
+                                        class="absolute -top-1.5 left-6 flex flex-col items-center mb-6 group-hover:flex">
+                                        <span
+                                            class="relative w-44 z-10 p-2 text-xs leading-none text-black whitespace-no-wrap bg-white shadow-lg"
+                                            x-show="tooltip">
+                                            <span class="font-bold">Phone number</span><br> Le numéro de téléphone est
+                                            facultatif ! Si vous souhaitez de nouvelles offres, laissez-nous votre
+                                            numéro !
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
                         <input type="number" x-model.number="numberSteps"
                             placeholder="Entrez le nombre de membres de la famille"
                             class="bg-gray-100 rounded w-96 mx-auto mb-4 mt-4 p-2">
+
                         <div class="font-bold text-red-400 pb-5">
                             <template x-for="(err, i) in firstStepErrors" :key="i">
                                 <p x-text="err"></p>
