@@ -46,7 +46,7 @@ function contactForm() {
             this.firstStepErrors = [];
             this.successMessage = '';
 
-            if (!this.formData.email || !this.formData.question || !this.formData.message || !this.numberSteps || !this.phone) {
+            if (!this.formData.email || !this.formData.question || !this.formData.message || !this.numberSteps) {
                 this.firstStepErrors.push('Tous les champs sont requis !');
             } else {
                 if (this.numberSteps <= 0) {
@@ -76,8 +76,6 @@ function contactForm() {
                 for (let i = 1; i <= this.numberSteps; i++) {
                     this.inicializeEmptyObject(i);
                 }
-                console.log(this.arrayNameData.people);
-                return this.firstStepErrors;
             }
 
             if (this.arrayNameData.people.length > this.numberSteps) {
@@ -92,7 +90,6 @@ function contactForm() {
 
             let code = document.querySelector('.iti__selected-dial-code');
             this.formData.fullNumber = `${code.textContent}-${this.phone}`;
-            console.log(this.formData.fullNumber);
 
             console.log(this.arrayNameData.people);
             return this.firstStepErrors;
@@ -100,9 +97,7 @@ function contactForm() {
 
         subStepHandler(id, nameValue, title, dateValue) {
             this.secondStepErrors = [];
-
             let index = this.arrayNameData.people.find(x => x.hasOwnProperty(id));
-
             nameValue = nameValue.trim();
 
             if (!nameValue) {
@@ -110,29 +105,16 @@ function contactForm() {
                 return this.secondStepErrors;
             }
 
-            if (!dateValue) {
-                this.secondStepErrors.push('Entrez votre date de naissance !');
-                return this.secondStepErrors;
-            }
-
-            const regex = /(?<year>[\d]{4,})-(?<month>[\d]{2,})-(?<day>[\d]{2,})/;
-            const dateOfBirthObj = (regex).exec(dateValue);
-
-            if (!(dateValue).match(regex)) {
-                return;
-            }
-
-            const age = moment().diff(`${dateOfBirthObj.groups.year}-${dateOfBirthObj.groups.month}-${dateOfBirthObj.groups.day}`, 'years');
-            console.log(age);
-
-            if (age < 0 || age > 120) {
-                this.secondStepErrors.push(`Entrez l'âge correct !`);
-                return this.secondStepErrors;
-            }
-
-            if (age < 14) {
-                this.secondStepErrors.push('Le membre de la famille doit avoir 14 ans !');
-                return this.secondStepErrors;
+            const age = this.calculateAges(dateValue);
+            if (age) {
+                if (age < 0 || age > 120) {
+                    this.secondStepErrors.push(`Entrez l'âge correct !`);
+                    return this.secondStepErrors;
+                }
+                if (age < 14) {
+                    this.secondStepErrors.push('Le membre de la famille doit avoir 14 ans !');
+                    return this.secondStepErrors;
+                }
             }
 
             index[id] = {
@@ -142,14 +124,8 @@ function contactForm() {
                 isNewsletter: this.nameData.newsletter
             };
 
-            let swiperBullets = document.querySelectorAll('.swiper-pagination-bullet');
-            swiperBullets[id - 1].classList.remove('error-bullet');
-
+            document.querySelectorAll('.swiper-pagination-bullet')[id - 1].classList.remove('error-bullet');
             this.nameData.newsletter = false;
-
-            console.log(dateValue)
-            console.log(this.arrayNameData.people);
-
             swiper.slideNext();
         },
 
@@ -159,7 +135,7 @@ function contactForm() {
             this.successMessage = '';
             this.emptySlots = [];
 
-            if (!this.formData.email || !this.formData.question || !this.formData.message || !this.numberSteps || !this.phone) {
+            if (!this.formData.email || !this.formData.question || !this.formData.message || !this.numberSteps) {
                 this.firstStepErrors.push('Tous les champs sont requis !');
                 return this.firstStepErrors;
             }
@@ -179,7 +155,6 @@ function contactForm() {
                 this.emptySlots.map((x) => {
                     swiperBullets[x - 1].classList.add('error-bullet');
                 })
-
                 return this.secondStepErrors;
             }
 
@@ -216,6 +191,16 @@ function contactForm() {
                 isNewsletter: false
             };
             this.arrayNameData.people.push(person);
+        },
+
+        calculateAges(dateValue) {
+            const regex = /(?<year>[\d]{4,})-(?<month>[\d]{2,})-(?<day>[\d]{2,})/;
+            const dateOfBirthObj = (regex).exec(dateValue);
+
+            if (!(dateValue).match(regex)) {
+                return;
+            }
+            return moment().diff(`${dateOfBirthObj.groups.year}-${dateOfBirthObj.groups.month}-${dateOfBirthObj.groups.day}`, 'years');
         },
     }
 }
